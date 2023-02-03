@@ -5,6 +5,10 @@
 1. Make access token in git lab as password to clone repository
 2. Install jsnode (https://nodejs.org/en/download/)
 
+## Using the app
+
+1. Use the command "npm start" to start the app.
+
 ## Add your files
 
 - [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
