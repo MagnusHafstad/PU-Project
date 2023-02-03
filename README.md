@@ -4,6 +4,7 @@
 
 1. Make access token in git lab as password to clone repository
 2. Install jsnode (https://nodejs.org/en/download/)
+3. npm install react-scripts --save
 
 ## Using the app
 
