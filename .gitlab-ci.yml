@@ -4,8 +4,7 @@
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/npm.gitlab-ci.yml
 
-publish:
-  build-job:
+build-job:
   stage: build
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
@@ -22,6 +21,7 @@ test-job2:
     - echo "After the echo commands complete, it runs the sleep command for 20 seconds"
     - echo "which simulates a test that runs 20 seconds longer than test-job1"
     - sleep 20
+publish:
   image: node:latest
   stage: deploy
   rules:
