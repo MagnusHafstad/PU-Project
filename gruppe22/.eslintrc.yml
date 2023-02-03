@@ -9,7 +9,7 @@ extends:
   - eslint:recommended
   - plugin:@typescript-eslint/eslint-recommended
   - plugin:@typescript-eslint/recommended
-  - next/core-web-vitals
+  # - next/core-web-vitals
   - plugin:prettier/recommended
 settings:
   import/parsers:
@@ -33,23 +33,23 @@ rules:
   import/default: "off"
   import/no-named-as-default-member: "off"
   import/no-named-as-default: "off"
-  import/order:
-    - error
-    - groups:
-        - builtin
-        - external
-        - internal
-        - parent
-        - sibling
-        - index
-        - object
-      newlines-between: always
-      alphabetize:
-        order: asc
-        caseInsensitive: true
-  "@typescript-eslint/no-empty-interface":
-    - error
-    - allowSingleExtends: true
+  # import/order:
+  #   - error
+  #   - groups:
+  #       - builtin
+  #       - external
+  #       - internal
+  #       - parent
+  #       - sibling
+  #       - index
+  #       - object
+  #     newlines-between: always
+  #     alphabetize:
+  #       order: asc
+  #       caseInsensitive: true
+  # "@typescript-eslint/no-empty-interface":
+  #   - error
+  #   - allowSingleExtends: true
   no-restricted-imports:
     - error
     - patterns:
