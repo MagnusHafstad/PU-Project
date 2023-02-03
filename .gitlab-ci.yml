@@ -8,7 +8,7 @@ publish:
   image: node:latest
   stage: deploy
   rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_REF_NAME =~ /^v\d+\.\d+\.\d+.*$/
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
       changes:
         - package.json
   script:
