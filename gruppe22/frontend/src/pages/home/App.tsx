@@ -1,11 +1,15 @@
 import React from "react";
+import BookList from "../../components/BookList";
+import SingleBook from "../../components/SingleBook";
+import { Book } from "../../types";
+import "./App.css";
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="App">
-      <header className="App-header">Hello World!</header>
+      <span className="heading">Gruppe 22</span>
+      <BookList />
     </div>
   );
-}
-
+};
 export default App;
