@@ -40,7 +40,7 @@ export default function BookList() {
         ) : (
           <>
             {books.map((book: Book) => {
-              return <SingleBook b={book} />;
+              return <SingleBook book={book} />;
             })}
           </>
         )}
