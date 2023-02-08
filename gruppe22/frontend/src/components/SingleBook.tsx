@@ -3,13 +3,13 @@ import { Book } from "../types";
 import "./Styles.css";
 
 interface Props {
-  b: Book;
+  book: Book;
 }
 
-export default function SingleBook({ b }: Props) {
+export default function SingleBook({ book }: Props) {
   return (
     <div className="SingleBook">
-      {b.title}, {b.author}
+      {book.title}, {book.author}
     </div>
   );
 }
