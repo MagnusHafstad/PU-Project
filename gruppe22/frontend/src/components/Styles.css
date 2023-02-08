@@ -1,0 +1,26 @@
+.SingleBook {
+    display: flex;
+    border-radius: 5px;
+    padding: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: beige;
+    border: 5px;
+    outline-style: solid;
+    outline-width: 3px;
+    outline-color: black;
+}
+
+.BookList {
+    background-color: rgb(116, 190, 239);
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    border-radius: 10px;
+    outline-style: solid;
+    outline-width: 3px;
+    outline-color: black;
+}

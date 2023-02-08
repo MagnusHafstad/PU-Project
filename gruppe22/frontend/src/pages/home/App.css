@@ -1,0 +1,29 @@
+.App {
+    width: 100vW;
+    height: 100vh;
+    background-color: rgb(255, 255, 255);
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+
+
+}
+
+.heading {
+    text-transform: uppercase;
+    font-size: 40px;
+    text-align: center;
+    margin: 40px 0;
+    color: aliceblue;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: rgb(116, 190, 239);
+    outline-style: solid;
+    outline-width: 3px;
+    outline-color: black;
+    border-radius: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
