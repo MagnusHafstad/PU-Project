@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Book } from "../types";
 import SingleBook from "./SingleBook";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase-config";
 
 export default function BookList() {
@@ -25,23 +25,6 @@ export default function BookList() {
     console.log(temp_books);
     setBooks(temp_books);
   }
-
-  // const Narnia: Book = {
-  //   title: "Narnia",
-  //   author: "C.S. Lewis",
-  // };
-
-  // const HarryPotter: Book = {
-  //   title: "Harry Potter",
-  //   author: "JK Rowling",
-  // };
-
-  // const Bibelen: Book = {
-  //   title: "Bibelen",
-  //   author: "Haakon Lauvrak",
-  // };
-
-  // const books2: Book[] = [Bibelen, HarryPotter, Narnia];
 
   useEffect(() => {
     fetchBooks();

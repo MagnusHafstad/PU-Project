@@ -1,8 +1,7 @@
 .App {
     width: 100vW;
     height: 100vh;
-    background-image: url("https://c1.wallpaperflare.com/preview/127/366/443/library-book-bookshelf-read.jpg");
-    /* background-color: rgb(120, 177, 242); */
+    background-color: rgb(255, 255, 255);
     align-items: center;
     display: flex;
     flex-direction: column;
