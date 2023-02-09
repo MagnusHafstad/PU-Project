@@ -12,7 +12,7 @@
     outline-width: 3px;
     outline-color: black;
 
-    max-width: 50px;
+    max-width: 100px;
 }
 
 .SingleBook p {
@@ -21,6 +21,16 @@
     /* Required for text-overflow to do anything */
     white-space: nowrap;
     overflow: hidden;
+}
+
+.SingleBook:hover {
+    height: 200px;
+    background-color: lightgray;
+}
+
+.SingleBook:hover p  {
+    white-space: normal;
+    overflow: visible;
 }
 
 .BookList {
