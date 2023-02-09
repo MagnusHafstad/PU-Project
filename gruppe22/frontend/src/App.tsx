@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
 import "./App.css";
-import BookList from "./components/BookList";
+import NotFound from "./pages/error/NotFound";
 import FindBooks from "./pages/findbooks/FindBooks";
 import Home from "./pages/home/Home";
 
@@ -19,6 +19,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path={"/"} element={<Home />} />
         <Route path={"/FindBooks"} element={<FindBooks />} />
+        <Route path={"*"} element={<NotFound />} />
       </Routes>
     </Router>
   );
