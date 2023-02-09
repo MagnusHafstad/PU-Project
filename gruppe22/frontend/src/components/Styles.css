@@ -11,6 +11,8 @@
     outline-style: solid;
     outline-width: 3px;
     outline-color: black;
+    /* if content is too much for the box the text ends with ellipsis */
+    text-overflow: ellipsis;
 }
 
 .BookList {
