@@ -11,6 +11,11 @@
     outline-style: solid;
     outline-width: 3px;
     outline-color: black;
+
+    max-width: 50px;
+}
+
+.SingleBook p {
     /* if content is too much for the box the text ends with ellipsis */
     text-overflow: ellipsis;
     /* Required for text-overflow to do anything */

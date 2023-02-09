@@ -9,7 +9,9 @@ interface Props {
 export default function SingleBook({ book }: Props) {
   return (
     <div className="SingleBook">
-      {book.title}, {book.author}
+      <p>
+        {book.title}, {book.author}
+      </p>
     </div>
   );
 }
