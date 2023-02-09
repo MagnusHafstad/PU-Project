@@ -15,6 +15,7 @@ export default function BookList() {
       setBooks(
         snapshot.docs.map((doc) => {
           return {
+            id: doc.id,
             title: doc.get("title"),
             author: doc.get("author"),
           };
