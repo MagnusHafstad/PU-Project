@@ -13,6 +13,9 @@
     outline-color: black;
     /* if content is too much for the box the text ends with ellipsis */
     text-overflow: ellipsis;
+    /* Required for text-overflow to do anything */
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .BookList {
