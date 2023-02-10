@@ -11,18 +11,17 @@ export default function BookList() {
 
   async function fetchBooks() {
     const temp_books: Book[] = [];
-    const temp_book: Book = { title: "", author: "" };
     getDocs(colRef).then((snapshot) => {
       setBooks(
         snapshot.docs.map((doc) => {
           return {
+            id: doc.id,
             title: doc.get("title"),
             author: doc.get("author"),
           };
         })
       );
     });
-    console.log(temp_books);
     setBooks(temp_books);
   }
 

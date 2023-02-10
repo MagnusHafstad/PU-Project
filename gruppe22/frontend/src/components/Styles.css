@@ -6,15 +6,26 @@
     padding-right: 50px;
     margin-top: 10px;
     margin-bottom: 10px;
-    background-color: beige;
+    background-color: #dea47e;
     border: 5px;
     outline-style: solid;
     outline-width: 3px;
-    outline-color: black;
+    outline-color: #ffffff;
+    color: rgb(255, 255, 255);
+}
+
+.LinkToBook {
+    color: white;
+    text-decoration-line: none;
+}
+
+.LinkToAuthor {
+    color: white;
+    text-decoration-line: none;
 }
 
 .BookList {
-    background-color: rgb(116, 190, 239);
+    background-color: #9e6240;
     padding-left: 50px;
     padding-right: 50px;
     padding-bottom: 30px;
@@ -22,5 +33,29 @@
     border-radius: 10px;
     outline-style: solid;
     outline-width: 3px;
-    outline-color: black;
+    outline-color: white;
 }
+
+.navigationBar {
+    font-size: 30px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: left;
+    background-color: #9e6240;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    word-spacing: 20px;
+    outline-color: white;
+
+ }
+
+ .homeLink {
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+ }
+
+ .findBooksLink {
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+ }
