@@ -7,6 +7,7 @@ export default function () {
   return (
     <BrowserRouter>
       <div>
+        {/* why link tag and not a tag? */}
         <Link to="/">Home</Link>
         <Link to="/FindBooks">FindBooks</Link>
       </div>
