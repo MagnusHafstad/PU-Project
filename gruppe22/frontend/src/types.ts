@@ -1,7 +1,7 @@
 type Book = {
-    title: string;
-    author: string;
-  }
-  
-  export type { Book };
-  
+  id: any;
+  title: string;
+  author: string;
+};
+
+export type { Book };
