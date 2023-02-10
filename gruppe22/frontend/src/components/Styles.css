@@ -24,7 +24,7 @@
     color: white;
     text-decoration-line: none;
 }
-.SingleBook Link{
+.SingleBook p{
     /* if content is too much for the box the text ends with ellipsis */
     text-overflow: ellipsis;
     /* Required for text-overflow to do anything */
@@ -37,7 +37,7 @@
     background-color: lightgray;
 }
 
-.SingleBook:hover Link {
+.SingleBook:hover p {
     white-space: normal;
     overflow: visible;
 }

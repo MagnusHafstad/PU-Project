@@ -11,13 +11,15 @@ export default function SingleBook({ book }: Props) {
   const bookLink: string = "/BookPage/" + book.id;
   return (
     <div className="SingleBook">
-      <Link to={bookLink} className="LinkToBook">
-        {book.title}
-      </Link>
-      <span>,&nbsp;</span>
-      <Link to={"/AuthorPage"} className="LinkToAuthor">
-        {book.author}
-      </Link>
+      <p>
+        <Link to={bookLink} className="LinkToBook">
+          {book.title}
+        </Link>
+        <span>,&nbsp;</span>
+        <Link to={"/AuthorPage"} className="LinkToAuthor">
+          {book.author}
+        </Link>
+      </p>
     </div>
   );
 }
