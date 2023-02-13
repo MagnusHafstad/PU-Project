@@ -24,3 +24,53 @@
     outline-width: 3px;
     outline-color: black;
 }
+div.BookDetParent {
+    display: flex;
+    border-radius: 5px;
+    padding: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(243, 243, 235);
+    border: 5px;
+    outline-style: solid;
+    outline-width: 3px;
+    outline-color: black;
+    height: 80vh;
+    width : 80vw;
+    background-image: url('../miniLau.png');
+}
+
+div.BookDetChild {
+    padding-left: 40px;
+
+}
+
+.BookInfo{
+    font-size: 25px; 
+    color: rgb(145, 173, 22);
+
+}
+.BookDetHeader{
+    font-size: 30px;
+    margin: 40px 0; 
+    color: rgb(192, 220, 244);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    /* font-size: 20px; */
+        /* text-align: center; */
+        /* float: left; */
+        /* background-color: rgb(116, 190, 239);  */
+        /* outline-style: solid;  */
+        /* outline-width: 3px;  */
+        /* outline-color: black;  */
+    
+}
+img.BookDet{
+    border-radius: 5px;
+    /* border: 100px solid black; */
+    float: left;
+    max-width: 40vw;
+    height: auto;
+
+}
