@@ -36,6 +36,17 @@ export default function BookPage() {
     fetchBook();
   }, []);
 
+  //Keeps newline in HTML conversion (in theory)
+  function paragraphise() {
+    if (book !== undefined) {
+      return { __html: book.description.replace(/Newline/g, "<br /> <br /> ") };
+    } else return { __html: "no book" };
+  }
+
+  const Paragraph: React.FC = () => {
+    return <p dangerouslySetInnerHTML={paragraphise()} />;
+  };
+
   //return; // <div>This is a book page for {book?.title}
   return (
     <>
@@ -54,9 +65,7 @@ export default function BookPage() {
                 <span className="BookInfo">{book.author}</span>
               </i>
             </p>
-            <p className="BookDetDesc">
-              Description: <span className="BookInfo">{book.description}</span>
-            </p>
+            <Paragraph />
           </div>
         )}
       </div>
