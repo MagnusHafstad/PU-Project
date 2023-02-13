@@ -2,7 +2,7 @@ type Book = {
   id: any;
   title: string;
   author: string;
-  desctiprion: string;
+  description: string;
 };
 
 export type { Book };

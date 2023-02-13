@@ -18,6 +18,7 @@ export default function BookList() {
             id: doc.id,
             title: doc.get("title"),
             author: doc.get("author"),
+            description: doc.get("description"),
           };
         })
       );
