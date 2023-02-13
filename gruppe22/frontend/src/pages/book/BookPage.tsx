@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../firebase-config";
 import { Book } from "../../types";
+import { NewlineText } from "../../components/ParagaphParser";
 
 export default function BookPage() {
   const { bookID } = useParams();
@@ -14,10 +15,12 @@ export default function BookPage() {
     id: "",
     title: "",
     author: "",
-    description: "",
+    description: "Lorem /n Ibsum",
   };
 
-  const paragraphs = currentBook.description.match(/[^\r\n]+/g);
+  //function ParseParagraph(): string {
+  //  return currentBook.description.replace(/\n/g, "<br />");
+  //}
 
   async function fetchBook() {
     getDocs(colRef).then((snapshot) => {
@@ -54,9 +57,9 @@ export default function BookPage() {
                 <span className="BookInfo">{book.author}</span>
               </i>
             </p>
-            <p className="BookDetDesc">
-              Description: <span className="BookInfo">{book.description}</span>
-            </p>
+            <div>
+              <NewlineText text={book.description} />
+            </div>
           </div>
         )}
       </div>

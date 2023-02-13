@@ -68,3 +68,16 @@
   float: right;
   padding-left: 10px;
 }
+
+.BookDetDesc {
+  white-space: pre-wrap;
+}
+.BookDetDescription {
+  white-space: pre-wrap;
+}
+.div {
+  white-space: pre-wrap;
+}
+div {
+  white-space: pre-wrap;
+}
