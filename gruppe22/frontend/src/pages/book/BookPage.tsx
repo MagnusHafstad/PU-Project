@@ -14,7 +14,7 @@ export default function BookPage() {
     id: "",
     title: "",
     author: "",
-    desctiprion: "",
+    description: "",
   };
 
   async function fetchBook() {
@@ -24,7 +24,7 @@ export default function BookPage() {
           id: { bookID },
           title: snapshot.docs.find((doc) => doc.id == bookID)?.get("title"),
           author: snapshot.docs.find((doc) => doc.id == bookID)?.get("author"),
-          desctiprion: snapshot.docs.find((doc) => doc.id == bookID)?.get("author"),
+          description: snapshot.docs.find((doc) => doc.id == bookID)?.get("author"),
         })
       );
     });
@@ -34,7 +34,29 @@ export default function BookPage() {
     fetchBook();
   }, []);
 
-  return <div>This is a book page for {book?.title}</div>;
+  //return; // <div>This is a book page for {book?.title}
+  return (
+    <>
+      <div className="BookDetParent">
+        <img className="BookDet" src="https://www.w3schools.com/css/img_lights.jpg" alt="Mountain"></img>
+        {book == undefined ? (
+          <div>Laster ...</div>
+        ) : (
+          <div className="BookDetChild">
+            <h1 className="BookDetHeader">
+              Title: <span className="BookInfo">{book.title}</span>
+            </h1>
+            <h1 className="BookDetHeader">
+              Author: <span className="BookInfo">{book.author}</span>
+            </h1>
+            <h3 className="BookDetHeader">
+              Description: <span className="BookInfo">{book.description}</span>
+            </h3>
+          </div>
+        )}
+      </div>
+    </>
+  );
 }
 
 // import React, { useEffect } from "react";
