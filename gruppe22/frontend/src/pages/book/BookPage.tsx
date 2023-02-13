@@ -36,13 +36,14 @@ export default function BookPage() {
     fetchBook();
   }, []);
 
-  //Keeps newline in HTML conversion (in theory)
+  //Keeps newline in HTML conversion
   function paragraphise() {
     if (book !== undefined) {
       return { __html: book.description.replace(/Newline/g, "<br /> <br /> ") };
     } else return { __html: "no book" };
   }
 
+  //Forces Html
   const Paragraph: React.FC = () => {
     return <p dangerouslySetInnerHTML={paragraphise()} />;
   };
