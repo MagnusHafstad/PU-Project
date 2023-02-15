@@ -14,6 +14,8 @@ export default function BookPage() {
     id: "",
     title: "",
     author: "",
+    description: "",
+    photo: "",
   };
 
   async function fetchBook() {
@@ -23,6 +25,8 @@ export default function BookPage() {
           id: { bookID },
           title: snapshot.docs.find((doc) => doc.id == bookID)?.get("title"),
           author: snapshot.docs.find((doc) => doc.id == bookID)?.get("author"),
+          description: snapshot.docs.find((doc) => doc.id == bookID)?.get("description"),
+          photo: snapshot.docs.find((doc) => doc.id == bookID)?.get("photo"),
         })
       );
     });
