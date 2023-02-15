@@ -3,6 +3,7 @@ type Book = {
   title: string;
   author: string;
   description: string;
+  photo: string;
 };
 
 export type { Book };

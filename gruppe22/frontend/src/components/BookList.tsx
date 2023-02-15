@@ -19,6 +19,7 @@ export default function BookList() {
             title: doc.get("title"),
             author: doc.get("author"),
             description: doc.get("description"),
+            photo: doc.get("photo"),
           };
         })
       );
