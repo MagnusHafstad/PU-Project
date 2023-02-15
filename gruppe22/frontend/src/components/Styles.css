@@ -6,6 +6,7 @@
   padding-right: 50px;
   margin-top: 10px;
   margin-bottom: 10px;
+  max-width: 700px;
   background-color: #dea47e;
   border: 5px;
   outline-style: solid;
@@ -22,6 +23,33 @@
 .LinkToAuthor {
   color: white;
   text-decoration-line: none;
+}
+
+.LinkToBook {
+    color: white;
+    text-decoration-line: none;
+}
+
+.LinkToAuthor {
+    color: white;
+    text-decoration-line: none;
+}
+.SingleBook p{
+    /* if content is too much for the box the text ends with ellipsis */
+    text-overflow: ellipsis;
+    /* Required for text-overflow to do anything */
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.SingleBook:hover {
+    /* height: 200px; */
+    background-color: lightgray;
+}
+
+.SingleBook:hover p {
+    white-space: normal;
+    overflow: visible;
 }
 
 .BookList {
