@@ -14,7 +14,10 @@ export default function BookPage() {
     id: "",
     title: "",
     author: "",
+    description: "",
   };
+
+  const paragraphs = currentBook.description.match(/[^\r\n]+/g);
 
   async function fetchBook() {
     getDocs(colRef).then((snapshot) => {
@@ -23,6 +26,7 @@ export default function BookPage() {
           id: { bookID },
           title: snapshot.docs.find((doc) => doc.id == bookID)?.get("title"),
           author: snapshot.docs.find((doc) => doc.id == bookID)?.get("author"),
+          description: snapshot.docs.find((doc) => doc.id == bookID)?.get("description"),
         })
       );
     });
@@ -32,5 +36,30 @@ export default function BookPage() {
     fetchBook();
   }, []);
 
-  return <div>This is a book page for {book?.title}</div>;
+  //return; // <div>This is a book page for {book?.title}
+  return (
+    <>
+      <div className="BookDetParent">
+        <img className="BookDet" src="https://www.w3schools.com/css/img_lights.jpg" alt="Mountain"></img>
+        {book == undefined ? (
+          <div>Laster ...</div>
+        ) : (
+          <div className="BookDetChild">
+            <h1 className="BookDetHeader">
+              Title: <span className="BookInfo">{book.title}</span>
+            </h1>
+            <p>
+              by:&nbsp;
+              <i>
+                <span className="BookInfo">{book.author}</span>
+              </i>
+            </p>
+            <p className="BookDetDesc">
+              Description: <span className="BookInfo">{book.description}</span>
+            </p>
+          </div>
+        )}
+      </div>
+    </>
+  );
 }
