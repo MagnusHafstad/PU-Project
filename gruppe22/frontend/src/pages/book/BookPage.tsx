@@ -18,6 +18,8 @@ export default function BookPage() {
     photo: "",
   };
 
+  const paragraphs = currentBook.description.match(/[^\r\n]+/g);
+
   async function fetchBook() {
     getDocs(colRef).then((snapshot) => {
       setBook(
@@ -36,5 +38,40 @@ export default function BookPage() {
     fetchBook();
   }, []);
 
-  return <div>This is a book page for {book?.title}</div>;
+  //Keeps newline in HTML conversion
+  function paragraphise() {
+    if (book !== undefined) {
+      return { __html: book.description.replace(/Newline/g, "<br /> <br /> ") };
+    } else return { __html: "no book" };
+  }
+
+  //Forces Html
+  const Paragraph: React.FC = () => {
+    return <p dangerouslySetInnerHTML={paragraphise()} />;
+  };
+
+  //return; // <div>This is a book page for {book?.title}
+  return (
+    <>
+      <div className="BookDetParent">
+        <img className="BookDet" src="https://www.w3schools.com/css/img_lights.jpg" alt="Mountain"></img>
+        {book == undefined ? (
+          <div>Laster ...</div>
+        ) : (
+          <div className="BookDetChild">
+            <h1 className="BookDetHeader">
+              Title: <span className="BookInfo">{book.title}</span>
+            </h1>
+            <p>
+              by:&nbsp;
+              <i>
+                <span className="BookInfo">{book.author}</span>
+              </i>
+            </p>
+            <Paragraph />
+          </div>
+        )}
+      </div>
+    </>
+  );
 }
