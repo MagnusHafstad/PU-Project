@@ -68,3 +68,9 @@
   float: right;
   padding-left: 10px;
 }
+
+.BookDetPhoto {
+  float: right;
+  width: 400px;
+  height: 480px;
+}
