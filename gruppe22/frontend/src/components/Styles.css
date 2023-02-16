@@ -72,6 +72,6 @@
 .BookDetPhoto {
   float: right;
   padding-left: 10px;
-  width: 400px;
-  height: 480px;
+  max-width: 400px;
+  height: auto;
 }
