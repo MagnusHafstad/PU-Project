@@ -34,6 +34,7 @@ export default function BookList() {
   return (
     <>
       <div className="BookList">
+        <h1 className="ListTitle">Weekly news</h1>
         {books == undefined ? (
           <>
             <div>Laster ...</div>

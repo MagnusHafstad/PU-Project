@@ -61,11 +61,15 @@
   padding-left: 50px;
   padding-right: 50px;
   padding-bottom: 30px;
-  padding-top: 30px;
+  padding-top: 10px;
   border-radius: 10px;
   outline-style: solid;
   outline-width: 3px;
   outline-color: white;
+}
+
+.ListTitle{
+  color: white;
 }
 
 .navigationBar {
