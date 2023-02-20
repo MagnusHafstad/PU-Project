@@ -1,9 +1,7 @@
 import React from "react";
-import { algoliaClient, algoliaIndex } from "../firebase-config";
-import { InstantSearch, Hits, SearchBox, Highlight, Snippet, connectHits } from "react-instantsearch-dom";
-import { Book } from "../types";
+import { algoliaClient } from "../firebase-config";
+import { InstantSearch, Hits, SearchBox } from "react-instantsearch-dom";
 import BookHit from "./BookHit";
-import SingleBook from "./SingleBook";
 import "./Styles.css";
 
 export default function SearchBar() {
