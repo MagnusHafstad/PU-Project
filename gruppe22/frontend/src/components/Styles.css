@@ -104,6 +104,7 @@
   height: auto;
 }
 
+/* Removes bullet points from search lists */
 .ais-Hits-list {
   list-style: none;
   padding: 0;
