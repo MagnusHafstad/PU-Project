@@ -6,10 +6,6 @@ import BookHit from "./BookHit";
 import SingleBook from "./SingleBook";
 import "./Styles.css";
 
-type HitProps = {
-  hit: Book;
-};
-
 export default function SearchBar() {
   return (
     <div className="Search">
