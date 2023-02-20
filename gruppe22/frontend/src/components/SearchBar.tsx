@@ -9,21 +9,6 @@ type HitProps = {
   hit: Book;
 };
 
-/*
-function Hit({ hit }: HitProps) {
-  return (
-    <div>
-      <div>
-        <Highlight attribute="title" hit={hit} />
-      </div>
-      <div>
-        <Snippet attribute="description" hit={hit} />
-      </div>
-    </div>
-  );
-}
-*/
-
 export default function SearchBar() {
   return (
     <div className="Search">
