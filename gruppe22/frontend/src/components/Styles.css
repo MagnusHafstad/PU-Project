@@ -13,14 +13,9 @@
   outline-width: 3px;
   outline-color: #ffffff;
   color: rgb(255, 255, 255);
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-
 } 
 .SingleBookInfo {
-  /* if content is too much for the box the text ends with ellipsis */
-  text-overflow: ellipsis;
+  
   /* Required for text-overflow to do anything */
   white-space: nowrap;
   overflow: hidden;
@@ -35,7 +30,6 @@
 .Description{
     /* if content is too much for the box the text ends with ellipsis */
     text-overflow: ellipsis;
-    white-space: nowrap;
     overflow: hidden;
     /* Required for text-overflow to do anything */
 
@@ -46,7 +40,7 @@
     background-color: lightgray;
 }
 
-.SingleBook:hover p {
+.SingleBook:hover .SingleBookInfo {
     white-space: normal;
     overflow: visible;
 }
