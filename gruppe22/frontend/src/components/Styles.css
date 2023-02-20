@@ -26,30 +26,30 @@
 }
 
 .LinkToBook {
-    color: white;
-    text-decoration-line: none;
+  color: white;
+  text-decoration-line: none;
 }
 
 .LinkToAuthor {
-    color: white;
-    text-decoration-line: none;
+  color: white;
+  text-decoration-line: none;
 }
-.SingleBook p{
-    /* if content is too much for the box the text ends with ellipsis */
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: nowrap;
-    overflow: hidden;
+.SingleBook p {
+  /* if content is too much for the box the text ends with ellipsis */
+  text-overflow: ellipsis;
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .SingleBook:hover {
-    /* height: 200px; */
-    background-color: lightgray;
+  /* height: 200px; */
+  background-color: lightgray;
 }
 
 .SingleBook:hover p {
-    white-space: normal;
-    overflow: visible;
+  white-space: normal;
+  overflow: visible;
 }
 
 .BookList {
@@ -102,4 +102,10 @@
   padding-left: 10px;
   max-width: 400px;
   height: auto;
+}
+
+.ais-Hits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }

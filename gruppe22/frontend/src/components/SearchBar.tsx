@@ -1,9 +1,10 @@
 import React from "react";
 import { algoliaClient, algoliaIndex } from "../firebase-config";
-import { InstantSearch, Hits, SearchBox, Highlight, Snippet } from "react-instantsearch-dom";
+import { InstantSearch, Hits, SearchBox, Highlight, Snippet, connectHits } from "react-instantsearch-dom";
 import { Book } from "../types";
 import BookHit from "./BookHit";
 import SingleBook from "./SingleBook";
+import "./Styles.css";
 
 type HitProps = {
   hit: Book;
