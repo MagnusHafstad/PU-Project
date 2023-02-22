@@ -30,6 +30,13 @@
   text-decoration-line: none;
 }
 
+.SingleBookInfo {
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden;
+  padding-left: 20px;
+}
+
 .Description {
   /* if content is too much for the box the text ends with ellipsis */
   text-overflow: ellipsis;
