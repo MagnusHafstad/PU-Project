@@ -11,13 +11,16 @@ const App: React.FC = () => {
   return (
     <Router>
       <nav className="navigationBar">
-        <Link to="/" className="homeLink">
-          Home
-        </Link>
-        <Link to="/FindBooks" className="findBooksLink">
-          FindBooks
-        </Link>
+        <div>
+          <Link to="/" className="homeLink">
+            <span className="heading">IBDB</span>
+          </Link>
+          <Link to="/FindBooks" className="findBooksLink">
+            FindBooks
+          </Link>
+        </div>
       </nav>
+      <div className="space"></div>
       <Routes>
         <Route path={"/"} element={<Home />} />
         <Route path={"/FindBooks"} element={<FindBooks />} />

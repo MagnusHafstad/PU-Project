@@ -30,16 +30,11 @@
   text-decoration-line: none;
 }
 
-.LinkToAuthor {
-  color: white;
-  text-decoration-line: none;
-}
-.SingleBook p {
+.Description {
   /* if content is too much for the box the text ends with ellipsis */
   text-overflow: ellipsis;
-  /* Required for text-overflow to do anything */
-  white-space: nowrap;
   overflow: hidden;
+  /* Required for text-overflow to do anything */
 }
 
 .SingleBook:hover {
@@ -47,9 +42,14 @@
   background-color: lightgray;
 }
 
-.SingleBook:hover p {
+.SingleBook:hover .SingleBookInfo {
   white-space: normal;
   overflow: visible;
+}
+
+.BookListPhoto {
+  max-width: 200px;
+  height: auto;
 }
 
 .BookList {
@@ -57,11 +57,15 @@
   padding-left: 50px;
   padding-right: 50px;
   padding-bottom: 30px;
-  padding-top: 30px;
+  padding-top: 10px;
   border-radius: 10px;
   outline-style: solid;
   outline-width: 3px;
   outline-color: white;
+}
+
+.ListTitle {
+  color: white;
 }
 
 .navigationBar {

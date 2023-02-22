@@ -26,19 +26,23 @@ export default function SingleBook({ book }: Props) {
   fetchImage();
   const bookLink: string = "/BookPage/" + book.id;
   return (
-    <div className="SingleBook">
-      <img src={imageURL} width="200" height="240" />
-      <p>
-        <Link to={bookLink} className="LinkToBook">
-          {book.title}
-        </Link>
-        <span>,&nbsp;</span>
-        <Link to={"/AuthorPage"} className="LinkToAuthor">
-          {book.author}
-        </Link>
-        <br />
-        {book.description}
-      </p>
-    </div>
+    <html>
+      <body>
+        <div className="SingleBook">
+          <div className="SingleBookPhoto">
+            <Link to={bookLink} className="PhotoLink">
+              <img src={imageURL} className="BookListPhoto" />
+            </Link>
+          </div>
+          <div className="SingleBookInfo">
+            <Link to={bookLink} className="LinkToBook">
+              <h2>{book.title}</h2>
+              <h3>by {book.author}</h3>
+              <p className="Description">{book.description}</p>
+            </Link>
+          </div>
+        </div>
+      </body>
+    </html>
   );
 }
