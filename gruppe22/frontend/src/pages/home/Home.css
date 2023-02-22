@@ -9,18 +9,3 @@
 
 }
 
-.heading {
-    text-transform: uppercase;
-    font-size: 80px;
-    text-align: center;
-    margin: 40px 0;
-    color: white;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    background-color: #9e6240;
-    outline-style: solid;
-    outline-width: 3px;
-    outline-color: white;
-    border-radius: 40px;
-    padding-left: 10px;
-    padding-right: 10px;
-}
