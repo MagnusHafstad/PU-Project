@@ -20,8 +20,6 @@ export default function BookPage() {
     photo: "",
   };
 
-  const paragraphs = currentBook.description.match(/[^\r\n]+/g);
-
   async function fetchBook() {
     getDocs(colRef).then((snapshot) => {
       setBook(

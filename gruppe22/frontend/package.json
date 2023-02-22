@@ -10,10 +10,12 @@
     "@types/node": "^16.18.11",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
+    "algoliasearch": "^4.14.3",
     "firebase": "^9.17.1",
     "prettier": "^2.8.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-instantsearch-dom": "^6.39.0",
     "react-router-dom": "^6.8.1",
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
@@ -43,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-instantsearch-dom": "^6.12.3",
     "@types/react-test-renderer": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "eslint": "^8.33.0",
