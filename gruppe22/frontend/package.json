@@ -46,6 +46,7 @@
   },
   "devDependencies": {
     "@types/react-instantsearch-dom": "^6.12.3",
+    "@types/react-test-renderer": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "eslint": "^8.33.0",
     "eslint-config-prettier": "^8.6.0",
@@ -55,6 +56,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
+    "react-test-renderer": "^18.2.0",
     "typescript": "^4.9.5"
   }
 }
