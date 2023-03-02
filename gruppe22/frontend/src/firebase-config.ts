@@ -1,8 +1,9 @@
 // Import the functions you need from the SDKs you need
 import algoliasearch from "algoliasearch";
-import { initializeApp } from "firebase/app";
+import { FirebaseApp, initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -22,3 +23,4 @@ export const algoliaClient = algoliasearch("X0B641IKS7", "9df315b410f05cc79683fc
 export const algoliaIndex = algoliaClient.initIndex("ibdb");
 export const storage = getStorage();
 export const db = getFirestore(app);
+export const auth = getAuth(app);
