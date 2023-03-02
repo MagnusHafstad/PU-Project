@@ -5,13 +5,14 @@ import SignOut from "../../components/SignOut";
 
 export default function ProfilePage() {
   const [username, setUsername] = React.useState<string | null>();
-  const [profileLink, setProfileLink] = React.useState<string>("");
+  const [uid, setUid] = React.useState<string>();
+
   function getUser() {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user != null) {
         setUsername(user.email);
-        setProfileLink("/Profile/" + user.uid);
+        setUid(user.uid);
       }
     });
   }
@@ -23,6 +24,7 @@ export default function ProfilePage() {
     <div>
       <h1>Profile</h1>
       <p>{username}</p>
+      <p>{uid}</p>
       <SignOut />
     </div>
   );

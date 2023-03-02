@@ -6,4 +6,8 @@ type Book = {
   photo: string;
 };
 
-export type { Book };
+type Admin = {
+  uid: string;
+}
+
+export type { Book, Admin };
