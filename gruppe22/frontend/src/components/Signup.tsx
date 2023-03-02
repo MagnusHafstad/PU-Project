@@ -1,8 +1,9 @@
 import React, { useState, FormEvent } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase-config";
+import { auth, db } from "../firebase-config";
 import "./Styles.css";
+import { collection, getDocs } from "firebase/firestore";
 
 const Signup: React.FC = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const Signup: React.FC = () => {
       // Signed in
       const user = userCredential.user;
       console.log(user);
-      navigate("/login");
+      navigate("/");
       // ...
     } catch (error: any) {
       const errorCode = error.code;
