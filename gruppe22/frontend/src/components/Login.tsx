@@ -22,6 +22,8 @@ const Login = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+        // Popup message when typing wrong password
+        window.alert("Wrong password or username. Try again");
       });
   };
 
