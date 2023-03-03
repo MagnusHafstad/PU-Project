@@ -13,11 +13,11 @@ export default function InsertBook() {
         <label htmlFor="author">Author</label>
         <input id="author" name="author" type="text" />
       </div>
-      {/* Unclear if should use hypertext instead, but current solution is simpler */}
       <div>
         <label htmlFor="photo">Photo</label>
         <input id="photo" name="filename" type="file" accept="image/png, image/gif, image/jpeg" />
       </div>
+      {/* Might require newline */}
       <div>
         <label htmlFor="description">Description</label>
         <textarea id="description" name="description" />
