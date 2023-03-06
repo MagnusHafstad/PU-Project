@@ -4,7 +4,6 @@ import React, { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../firebase-config";
 import { Book } from "../../types";
-import { initializeApp } from "firebase/app"; // import app module
 import { storage } from "../../firebase-config";
 
 export default function BookPage() {
@@ -85,22 +84,31 @@ export default function BookPage() {
           throw "Document does not exist!";
         }
 
-        // Compute new number of ratings
-        const newNumRatings = res.data().numUserRatings + 1;
+        // Setting the first rating of a book
+        if (res.data().numUserRatings === 0) {
+          transaction.update(bookRef, {
+            numUserRatings: 1,
+            avgUserRating: rating,
+          });
+        } else {
+          // Compute new number of ratings
+          const newNumRatings = res.data().numUserRatings + 1;
 
-        // Compute new average rating
-        const oldRatingTotal = res.data().avgUserRating * res.data().numUserRatings;
-        const newAvgRating = (oldRatingTotal + rating) / newNumRatings;
+          // Compute new average rating
+          const oldRatingTotal = res.data().avgUserRating * res.data().numUserRatings;
+          const newAvgRating = (oldRatingTotal + rating) / newNumRatings;
 
-        // Commit to Firestore
-        transaction.update(bookRef, {
-          numUserRatings: newNumRatings,
-          avgUserRating: newAvgRating,
-        });
+          // Commit to Firestore
+          transaction.update(bookRef, {
+            numUserRatings: newNumRatings,
+            avgUserRating: newAvgRating,
+          });
+        }
 
+        // adding rating to the collection
         const newDoc = doc(ratingRef);
         transaction.set(newDoc, { rating: rating });
-        //legg til id
+        //legg til bruker-id også
       });
     });
   }
@@ -108,7 +116,7 @@ export default function BookPage() {
   function handleAddRating() {
     const rating = parseInt(ratingInputRef.current?.value || "0");
     //må sjekke innlogging
-    if (rating < 0 && rating > 10) {
+    if (rating >= 0 && rating <= 10) {
       addRating(rating);
     } else {
       //Feilhåntering
@@ -137,6 +145,8 @@ export default function BookPage() {
           </div>
         )}
         <div>
+          <span> Avg rating: {book?.avgUserRating || "No ratings yet"}</span>
+          <br />
           <label htmlFor="Rating">Rating</label>
           <input id="Rating" name="Rating" type="text" ref={ratingInputRef} />
           <button onClick={handleAddRating}>Add Rating</button>

@@ -58,7 +58,7 @@ export default function SingleBook({ book }: Props) {
             </Link>
           </div>
           <div className="Ratings">
-            <h3> {book.avgUserRating}</h3>
+            <h3> {book.avgUserRating?.toFixed(1) || "no ratings"}</h3>
           </div>
         </div>
       </body>

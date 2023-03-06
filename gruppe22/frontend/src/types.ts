@@ -4,7 +4,7 @@ type Book = {
   author: string;
   description: string;
   photo: string;
-  avgUserRating: number;
+  avgUserRating?: number;
   numUserRatings: number;
 };
 
