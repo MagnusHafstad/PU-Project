@@ -70,6 +70,38 @@ export default function BookPage() {
     return <p dangerouslySetInnerHTML={paragraphise()} />;
   };
 
+
+  function addRating(rating) {
+
+    var bookRef = "books"+book.id
+    // Create a reference for a new rating, for use inside the transaction
+    var ratingRef = restaurantRef.collection('ratings').doc();
+
+    // In a transaction, add the new rating and update the aggregate totals
+    return db.runTransaction((transaction) => {
+        return transaction.get(restaurantRef).then((res) => {
+            if (!res.exists) {
+                throw "Document does not exist!";
+            }
+
+            // Compute new number of ratings
+            var newNumRatings = res.data().numRatings + 1;
+
+            // Compute new average rating
+            var oldRatingTotal = res.data().avgRating * res.data().numRatings;
+            var newAvgRating = (oldRatingTotal + rating) / newNumRatings;
+
+            // Commit to Firestore
+            transaction.update(restaurantRef, {
+                numRatings: newNumRatings,
+                avgRating: newAvgRating
+            });
+            transaction.set(ratingRef, { rating: rating });
+        });
+    });
+}
+
+
   //return; // <div>This is a book page for {book?.title}
   return (
     <>
