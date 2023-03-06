@@ -4,6 +4,7 @@ type Book = {
   author: string;
   description: string;
   photo: string;
+  avgUserRating: number;
 };
 
 export type { Book };
