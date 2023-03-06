@@ -7,7 +7,6 @@ import { Book } from "../../types";
 import { initializeApp } from "firebase/app"; // import app module
 import { storage } from "../../firebase-config";
 
-
 export default function BookPage() {
   const { bookID } = useParams();
   const colRef = collection(db, "books");
@@ -76,28 +75,27 @@ export default function BookPage() {
     return <p dangerouslySetInnerHTML={paragraphise()} />;
   };
 
-
   function addRating(rating: number) {
-    const bookRef = doc(db, "books/"+bookID);
-    const ratingRef = collection(db, "books/"+bookID+"/userRatings");
-  
+    const bookRef = doc(db, "books/" + bookID);
+    const ratingRef = collection(db, "books/" + bookID + "/userRatings");
+
     return runTransaction(db, (transaction) => {
       return transaction.get(bookRef).then((res) => {
         if (!res.exists()) {
           throw "Document does not exist!";
         }
-  
+
         // Compute new number of ratings
         const newNumRatings = res.data().numUserRatings + 1;
-  
+
         // Compute new average rating
         const oldRatingTotal = res.data().avgUserRating * res.data().numUserRatings;
         const newAvgRating = (oldRatingTotal + rating) / newNumRatings;
-  
+
         // Commit to Firestore
         transaction.update(bookRef, {
           numUserRatings: newNumRatings,
-          avgUserRating: newAvgRating
+          avgUserRating: newAvgRating,
         });
 
         const newDoc = doc(ratingRef);
@@ -106,18 +104,16 @@ export default function BookPage() {
       });
     });
   }
-  
+
   function handleAddRating() {
     const rating = parseInt(ratingInputRef.current?.value || "0");
     //må sjekke innlogging
-    if (rating<0 && rating>10){
+    if (rating < 0 && rating > 10) {
       addRating(rating);
-    }
-    else{
+    } else {
       //Feilhåntering
     }
   }
-
 
   //return; // <div>This is a book page for {book?.title}
   return (
@@ -141,10 +137,10 @@ export default function BookPage() {
           </div>
         )}
         <div>
-        <label htmlFor="Rating">Rating</label>
-        <input id="Rating" name="Rating" type="text" ref={ratingInputRef} />
-        <button onClick={handleAddRating}>Add Rating</button>
-      </div>
+          <label htmlFor="Rating">Rating</label>
+          <input id="Rating" name="Rating" type="text" ref={ratingInputRef} />
+          <button onClick={handleAddRating}>Add Rating</button>
+        </div>
       </div>
     </>
   );
