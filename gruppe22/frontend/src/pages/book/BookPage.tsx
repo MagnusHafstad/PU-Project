@@ -148,7 +148,11 @@ export default function BookPage() {
           <span> Avg rating: {book?.avgUserRating || "No ratings yet"}</span>
           <br />
           <label htmlFor="Rating">Rating</label>
-          <input id="Rating" name="Rating" type="text" ref={ratingInputRef} />
+          {/*
+            Possible restriction that only allows the integers 1,2,3,4,5
+            min="1" max="5" step="1"
+            */}
+          <input id="Rating" name="Rating" type="number" ref={ratingInputRef} />
           <button onClick={handleAddRating}>Add Rating</button>
         </div>
       </div>
