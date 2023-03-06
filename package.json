@@ -6,6 +6,10 @@
     "ts-jest": "^29.0.5"
   },
   "dependencies": {
+    "algoliasearch": "^4.14.3",
+    "react-instantsearch-core": "^6.39.0",
+    "react-instantsearch-dom": "^6.39.0",
+    "react-test-renderer": "^18.2.0",
     "synckit": "^0.8.5"
   }
 }

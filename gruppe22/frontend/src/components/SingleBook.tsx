@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { Book } from "../types";
 import { ref, getDownloadURL } from "firebase/storage";
 import "./Styles.css";
-import { storage } from "../firebase-config";
+import { collection, getDocs } from "firebase/firestore";
+import { storage, db } from "../firebase-config";
 
 interface Props {
   book: Book;
@@ -24,6 +25,22 @@ export default function SingleBook({ book }: Props) {
     return;
   }
   fetchImage();
+
+  async function getAvgRating() {
+    const colRef = collection(db, "books/"+book.id+"/userRatings");
+    const [ratings, setRatings] = React.useState<Number[]>();
+    const temp_ratings: Number[] = [];
+    getDocs(colRef).then((snapshot) => {
+      snapshot.docs.forEach((doc)=>{
+        const rating = doc.get("Rating");
+        temp_ratings.push(rating);
+      })
+    })
+    setRatings(temp_ratings);
+    return 
+
+  }
+
   const bookLink: string = "/BookPage/" + book.id;
   return (
     <html>
@@ -40,6 +57,9 @@ export default function SingleBook({ book }: Props) {
               <h3>by {book.author}</h3>
               <p className="Description">{book.description}</p>
             </Link>
+          </div>
+          <div className="Ratings">
+
           </div>
         </div>
       </body>
