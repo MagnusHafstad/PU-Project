@@ -25,6 +25,8 @@ const Signup: React.FC = () => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode, errorMessage);
+      //popupbox if email is invalid
+      window.alert("Invalid email. Try again");
       // ..
     }
   };
