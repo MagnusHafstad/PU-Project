@@ -1,16 +1,20 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, runTransaction, doc } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../firebase-config";
 import { Book } from "../../types";
+import { initializeApp } from "firebase/app"; // import app module
 import { storage } from "../../firebase-config";
+
 
 export default function BookPage() {
   const { bookID } = useParams();
   const colRef = collection(db, "books");
 
   const [book, setBook] = React.useState<Book | undefined>();
+
+  const ratingInputRef = useRef<HTMLInputElement>(null);
 
   let currentBook: Book = {
     id: "",
@@ -73,35 +77,46 @@ export default function BookPage() {
   };
 
 
-  function addRating(rating) {
-
-    var bookRef = "books"+book.id
-    // Create a reference for a new rating, for use inside the transaction
-    var ratingRef = restaurantRef.collection('ratings').doc();
-
-    // In a transaction, add the new rating and update the aggregate totals
-    return db.runTransaction((transaction) => {
-        return transaction.get(restaurantRef).then((res) => {
-            if (!res.exists) {
-                throw "Document does not exist!";
-            }
-
-            // Compute new number of ratings
-            var newNumRatings = res.data().numRatings + 1;
-
-            // Compute new average rating
-            var oldRatingTotal = res.data().avgRating * res.data().numRatings;
-            var newAvgRating = (oldRatingTotal + rating) / newNumRatings;
-
-            // Commit to Firestore
-            transaction.update(restaurantRef, {
-                numRatings: newNumRatings,
-                avgRating: newAvgRating
-            });
-            transaction.set(ratingRef, { rating: rating });
+  function addRating(rating: number) {
+    const bookRef = doc(db, "books/"+bookID);
+    const ratingRef = collection(db, "books/"+bookID+"/userRatings");
+  
+    return runTransaction(db, (transaction) => {
+      return transaction.get(bookRef).then((res) => {
+        if (!res.exists()) {
+          throw "Document does not exist!";
+        }
+  
+        // Compute new number of ratings
+        const newNumRatings = res.data().numUserRatings + 1;
+  
+        // Compute new average rating
+        const oldRatingTotal = res.data().avgUserRating * res.data().numUserRatings;
+        const newAvgRating = (oldRatingTotal + rating) / newNumRatings;
+  
+        // Commit to Firestore
+        transaction.update(bookRef, {
+          numUserRatings: newNumRatings,
+          avgUserRating: newAvgRating
         });
+
+        const newDoc = doc(ratingRef);
+        transaction.set(newDoc, { rating: rating });
+        //legg til id
+      });
     });
-}
+  }
+  
+  function handleAddRating() {
+    const rating = parseInt(ratingInputRef.current?.value || "0");
+    //må sjekke innlogging
+    if (rating<0 && rating>10){
+      addRating(rating);
+    }
+    else{
+      //Feilhåntering
+    }
+  }
 
 
   //return; // <div>This is a book page for {book?.title}
@@ -125,6 +140,11 @@ export default function BookPage() {
             <Paragraph />
           </div>
         )}
+        <div>
+        <label htmlFor="Rating">Rating</label>
+        <input id="Rating" name="Rating" type="text" ref={ratingInputRef} />
+        <button onClick={handleAddRating}>Add Rating</button>
+      </div>
       </div>
     </>
   );
