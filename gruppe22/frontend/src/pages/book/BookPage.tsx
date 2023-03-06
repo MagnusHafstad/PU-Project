@@ -150,7 +150,7 @@ export default function BookPage() {
           <label htmlFor="Rating">Rating</label>
           {/*
             Possible restriction that only allows the integer from 1 to 10
-            min="1" max="10" step="1"
+            min="0" max="10" step="1"
             */}
           <input id="Rating" name="Rating" type="number" ref={ratingInputRef} />
           <button onClick={handleAddRating}>Add Rating</button>
