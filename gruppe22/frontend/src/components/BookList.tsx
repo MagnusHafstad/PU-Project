@@ -10,7 +10,7 @@ export default function BookList() {
   const [books, setBooks] = React.useState<Book[] | undefined>();
 
   async function fetchBooks() {
-    const temp_books: Book[] = [];
+    // const temp_books: Book[] = [];
     getDocs(colRef).then((snapshot) => {
       setBooks(
         snapshot.docs.map((doc) => {
@@ -24,7 +24,7 @@ export default function BookList() {
         })
       );
     });
-    setBooks(temp_books);
+    // setBooks(temp_books);
   }
 
   useEffect(() => {
