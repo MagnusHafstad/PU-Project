@@ -27,18 +27,17 @@ export default function SingleBook({ book }: Props) {
   fetchImage();
 
   async function getAvgRating() {
-    const colRef = collection(db, "books/"+book.id+"/userRatings");
-    const [ratings, setRatings] = React.useState<Number[]>();
-    const temp_ratings: Number[] = [];
+    const colRef = collection(db, "books/" + book.id + "/userRatings");
+    const [ratings, setRatings] = React.useState<number[]>();
+    const temp_ratings: number[] = [];
     getDocs(colRef).then((snapshot) => {
-      snapshot.docs.forEach((doc)=>{
+      snapshot.docs.forEach((doc) => {
         const rating = doc.get("Rating");
         temp_ratings.push(rating);
-      })
-    })
+      });
+    });
     setRatings(temp_ratings);
-    return 
-
+    return;
   }
 
   const bookLink: string = "/BookPage/" + book.id;
@@ -59,7 +58,7 @@ export default function SingleBook({ book }: Props) {
             </Link>
           </div>
           <div className="Ratings">
-
+            <h3>{book.avgUserRating}</h3>
           </div>
         </div>
       </body>

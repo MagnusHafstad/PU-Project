@@ -18,6 +18,7 @@ export default function BookPage() {
     author: "",
     description: "",
     photo: "",
+    avgUserRating: 0,
   };
 
   async function fetchBook() {
@@ -29,6 +30,7 @@ export default function BookPage() {
           author: snapshot.docs.find((doc) => doc.id == bookID)?.get("author"),
           description: snapshot.docs.find((doc) => doc.id == bookID)?.get("description"),
           photo: snapshot.docs.find((doc) => doc.id == bookID)?.get("photo"),
+          avgUserRating: snapshot.docs.find((doc) => doc.id == bookID)?.get("avgUserRating"),
         })
       );
     });
