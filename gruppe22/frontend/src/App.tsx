@@ -6,6 +6,8 @@ import BookPage from "./pages/book/BookPage";
 import NotFound from "./pages/error/NotFound";
 import FindBooks from "./pages/findbooks/FindBooks";
 import Home from "./pages/home/Home";
+{/* temporary solution for including InsertBook page */}
+import InsertBook from "./pages/insertbook/InsertBook";
 
 const App: React.FC = () => {
   return (
@@ -18,6 +20,10 @@ const App: React.FC = () => {
           <Link to="/FindBooks" className="findBooksLink">
             FindBooks
           </Link>
+          {/* temporary solution for including InsertBook page */}
+          <Link to="/InsertBook" className="insertBookLink">
+            InsertBook
+          </Link>
         </div>
       </nav>
       <div className="space"></div>
@@ -26,6 +32,8 @@ const App: React.FC = () => {
         <Route path={"/FindBooks"} element={<FindBooks />} />
         <Route path={"/BookPage/:bookID"} element={<BookPage />} />
         <Route path={"/AuthorPage"} element={<AuthorPage />} />
+        {/* temporary solution for including InsertBook page */}
+        <Route path={"/InsertBook"} element={<InsertBook />} />
         <Route path={"*"} element={<NotFound />} />
       </Routes>
     </Router>
