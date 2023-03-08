@@ -1,4 +1,4 @@
-import { collection, getDocs, runTransaction, doc } from "firebase/firestore";
+import { collection, getDocs, runTransaction, doc, where, query } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import React, { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
@@ -51,13 +51,6 @@ export default function BookPage() {
     });
   }
 
-  useEffect(() => {
-    fetchBook();
-    getUser();
-    fetchAdmin();
-    // fetchImage();
-  }, []);
-
   const [imageURL, setImageURL] = React.useState("");
   async function fetchImage() {
     if (book !== undefined) {
@@ -87,7 +80,7 @@ export default function BookPage() {
     return <p dangerouslySetInnerHTML={paragraphise()} />;
   };
 
-  function addRating(rating: number) {
+  async function addRating(rating: number) {
     const bookRef = doc(db, "books/" + bookID);
     const ratingRef = collection(db, "books/" + bookID + "/userRatings");
 
@@ -120,7 +113,7 @@ export default function BookPage() {
 
         // adding rating to the collection
         const newDoc = doc(ratingRef);
-        transaction.set(newDoc, { rating: rating });
+        transaction.set(newDoc, { rating: rating, userID: uid });
         //legg til bruker-id også
       });
     });
@@ -131,6 +124,7 @@ export default function BookPage() {
     //må sjekke innlogging
     if (rating >= 0 && rating <= 10) {
       addRating(rating);
+      checkRating();
     } else {
       //Feilhåntering
     }
@@ -138,9 +132,9 @@ export default function BookPage() {
 
   //the code below is for checking if user is admin or not
   const colAdm = collection(db, "admin");
-
   const [admins, setAdmins] = React.useState<Admin[] | undefined>();
   const [uid, setUid] = React.useState<string>("");
+  const [hasRated, setHasRated] = React.useState<boolean>(false);
   // const [username, setUsername] = React.useState<string | null>();
 
   //fetches admin uids from db
@@ -177,6 +171,31 @@ export default function BookPage() {
     });
   }
 
+  //write a funtion to check if a user has already rated a book
+  //if so, the rating should be displayed and the user should be able to change it
+  //if not, the user should be able to add a rating
+
+  //checks if user has rated a book
+  async function checkRating() {
+    const ratingRef = collection(db, "books/" + bookID + "/userRatings");
+    const q = query(ratingRef, where("userID", "==", uid));
+    getDocs(q).then((snapshot) => {
+      if (snapshot.docs.length > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    return false;
+  }
+
+  useEffect(() => {
+    fetchBook();
+    getUser();
+    fetchAdmin();
+    checkRating();
+  }, []);
+
   //return; // <div>This is a book page for {book?.title}
   return (
     <>
@@ -201,9 +220,19 @@ export default function BookPage() {
         <div>
           <span> Avg rating: {book?.avgUserRating || "No ratings yet"}</span>
           <br />
-          <label htmlFor="Rating">Rating</label>
-          <input id="Rating" name="Rating" type="number" min="0" max="10" step="1" ref={ratingInputRef} />
-          <button onClick={handleAddRating}>Add Rating</button>
+          {uid ? (
+            checkRating() ? (
+              <></>
+            ) : (
+              <div>
+                <label htmlFor="Rating">Rating</label>
+                <input id="Rating" name="Rating" type="number" min="0" max="10" step="1" ref={ratingInputRef} />
+                <button onClick={handleAddRating}>Add Rating</button>
+              </div>
+            )
+          ) : (
+            <></>
+          )}
         </div>
         {checkAdmin() ? <EditButton /> : <></>}
       </div>
