@@ -1,6 +1,6 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, runTransaction, doc } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../firebase-config";
 import { Book } from "../../types";
@@ -12,12 +12,16 @@ export default function BookPage() {
 
   const [book, setBook] = React.useState<Book | undefined>();
 
+  const ratingInputRef = useRef<HTMLInputElement>(null);
+
   let currentBook: Book = {
     id: "",
     title: "",
     author: "",
     description: "",
     photo: "",
+    avgUserRating: 0,
+    numUserRatings: 0,
   };
 
   async function fetchBook() {
@@ -29,6 +33,8 @@ export default function BookPage() {
           author: snapshot.docs.find((doc) => doc.id == bookID)?.get("author"),
           description: snapshot.docs.find((doc) => doc.id == bookID)?.get("description"),
           photo: snapshot.docs.find((doc) => doc.id == bookID)?.get("photo"),
+          avgUserRating: snapshot.docs.find((doc) => doc.id == bookID)?.get("avgUserRating"),
+          numUserRatings: snapshot.docs.find((doc) => doc.id == bookID)?.get("numUserRatings"),
         })
       );
     });
@@ -68,6 +74,55 @@ export default function BookPage() {
     return <p dangerouslySetInnerHTML={paragraphise()} />;
   };
 
+  function addRating(rating: number) {
+    const bookRef = doc(db, "books/" + bookID);
+    const ratingRef = collection(db, "books/" + bookID + "/userRatings");
+
+    return runTransaction(db, (transaction) => {
+      return transaction.get(bookRef).then((res) => {
+        if (!res.exists()) {
+          throw "Document does not exist!";
+        }
+
+        // Setting the first rating of a book
+        if (res.data().numUserRatings === 0) {
+          transaction.update(bookRef, {
+            numUserRatings: 1,
+            avgUserRating: rating,
+          });
+        } else {
+          // Compute new number of ratings
+          const newNumRatings = res.data().numUserRatings + 1;
+
+          // Compute new average rating
+          const oldRatingTotal = res.data().avgUserRating * res.data().numUserRatings;
+          const newAvgRating = (oldRatingTotal + rating) / newNumRatings;
+
+          // Commit to Firestore
+          transaction.update(bookRef, {
+            numUserRatings: newNumRatings,
+            avgUserRating: newAvgRating,
+          });
+        }
+
+        // adding rating to the collection
+        const newDoc = doc(ratingRef);
+        transaction.set(newDoc, { rating: rating });
+        //legg til bruker-id også
+      });
+    });
+  }
+
+  function handleAddRating() {
+    const rating = parseInt(ratingInputRef.current?.value || "0");
+    //må sjekke innlogging
+    if (rating >= 0 && rating <= 10) {
+      addRating(rating);
+    } else {
+      //Feilhåntering
+    }
+  }
+
   //return; // <div>This is a book page for {book?.title}
   return (
     <>
@@ -89,6 +144,13 @@ export default function BookPage() {
             <Paragraph />
           </div>
         )}
+        <div>
+          <span> Avg rating: {book?.avgUserRating || "No ratings yet"}</span>
+          <br />
+          <label htmlFor="Rating">Rating</label>
+          <input id="Rating" name="Rating" type="number" min="0" max="10" step="1" ref={ratingInputRef} />
+          <button onClick={handleAddRating}>Add Rating</button>
+        </div>
       </div>
     </>
   );
