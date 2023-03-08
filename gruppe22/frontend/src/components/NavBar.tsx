@@ -13,6 +13,7 @@ export default function NavBar() {
   const [username, setUsername] = React.useState<string | null>();
   const [profileLink, setProfileLink] = React.useState<string>("");
 
+  //function that retieves all the data from "admins" collection
   async function fetchAdmin() {
     let user = "";
     getDocs(colRef).then((snapshot) => {
@@ -24,14 +25,18 @@ export default function NavBar() {
     });
   }
 
+  //Function that retrieves the user with the uid for the logged in user
   function getUser() {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user != null) {
+        //code that is executed if there is a user logged in
         setUsername(user.email);
         setUid(user.uid);
+        //sets the link to the profile of the user
         setProfileLink("/Profile/" + user.uid);
       } else {
+        //code that is executed if there is noe user logged in
         setUsername(null);
         setUid("");
         setProfileLink("");
@@ -52,6 +57,7 @@ export default function NavBar() {
         <Link to="/FindBooks" className="findBooksLink">
           FindBooks
         </Link>
+        {/* checks if a user is logged in and renders either the login page or the profile-page of the user */}
         {username ? (
           <button className="loginPageLink">
             <Link className="findBooksLink" to={profileLink}>
