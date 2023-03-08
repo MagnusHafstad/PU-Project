@@ -16,6 +16,8 @@ const currentBook: Book = {
   author: "",
   description: "",
   photo: "",
+  avgUserRating: 0,
+  numUserRatings: 0,
 };
 
 async function fetchBook(bookID: string) {
@@ -26,6 +28,8 @@ async function fetchBook(bookID: string) {
     author: snapshot.docs.find((doc) => doc.id === bookID)?.get("author"),
     description: snapshot.docs.find((doc) => doc.id === bookID)?.get("description"),
     photo: snapshot.docs.find((doc) => doc.id === bookID)?.get("photo"),
+    avgUserRating: snapshot.docs.find((doc) => doc.id === bookID)?.get("avgUserRating"),
+    numUserRatings: snapshot.docs.find((doc) => doc.id === bookID)?.get("numUserRatings"),
   };
   return fetchedBook;
 }
