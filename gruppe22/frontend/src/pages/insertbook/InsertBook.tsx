@@ -6,7 +6,7 @@ export default function InsertBook() {
   const authorInputRef = useRef<HTMLInputElement>(null);
   const photoInputRef = useRef<HTMLInputElement>(null);
   const descriptionInputRef = useRef<HTMLTextAreaElement>(null);
-  
+
   function handleAddBook() {
     console.log("Submitted");
   }
