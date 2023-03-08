@@ -5,12 +5,21 @@ import { useParams } from "react-router-dom";
 import { db } from "../../firebase-config";
 import { Book } from "../../types";
 import { storage } from "../../firebase-config";
+import { Admin } from "../../types";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import EditButton from "../../components/EditButton";
 
 export default function BookPage() {
   const { bookID } = useParams();
   const colRef = collection(db, "books");
 
-  const [book, setBook] = React.useState<Book | undefined>();
+  const [book, setBook] = React.useState<Book>({
+    id: "",
+    title: "",
+    author: "",
+    description: "",
+    photo: "",
+  });
 
   const ratingInputRef = useRef<HTMLInputElement>(null);
 
@@ -42,6 +51,8 @@ export default function BookPage() {
 
   useEffect(() => {
     fetchBook();
+    getUser();
+    fetchAdmin();
     // fetchImage();
   }, []);
 
@@ -123,6 +134,47 @@ export default function BookPage() {
     }
   }
 
+  //the code below is for checking if user is admin or not
+  const colAdm = collection(db, "admin");
+
+  const [admins, setAdmins] = React.useState<Admin[] | undefined>();
+  const [uid, setUid] = React.useState<string>("");
+  // const [username, setUsername] = React.useState<string | null>();
+
+  //fetches admin uids from db
+  async function fetchAdmin() {
+    console.log(uid);
+    getDocs(colAdm).then((snapshot) => {
+      setAdmins(
+        snapshot.docs.map((doc) => {
+          return {
+            uid: doc.get("uid"),
+          };
+        })
+      );
+    });
+  }
+
+  //checks if user is admin
+  function checkAdmin() {
+    if (admins?.find((a) => a.uid == uid)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //find user and setsd uid to user.uid
+  function getUser() {
+    const auth = getAuth();
+    return onAuthStateChanged(auth, (user) => {
+      if (user != null) {
+        // setUsername(user.email);
+        setUid(user.uid);
+      }
+    });
+  }
+
   //return; // <div>This is a book page for {book?.title}
   return (
     <>
@@ -151,6 +203,7 @@ export default function BookPage() {
           <input id="Rating" name="Rating" type="number" min="0" max="10" step="1" ref={ratingInputRef} />
           <button onClick={handleAddRating}>Add Rating</button>
         </div>
+        {checkAdmin() ? <EditButton /> : <></>}
       </div>
     </>
   );

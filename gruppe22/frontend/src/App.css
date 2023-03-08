@@ -6,6 +6,20 @@
     text-decoration-line: none;
 }
 
+.loginPageLink{
+    float: right;
+    margin-right: 1vw;
+    background-color: #3f51b5;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
 .heading {
     text-transform: uppercase;
     font-size: 40px;

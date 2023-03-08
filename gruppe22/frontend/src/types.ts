@@ -8,4 +8,8 @@ type Book = {
   numUserRatings: number;
 };
 
-export type { Book };
+type Admin = {
+  uid: string;
+};
+
+export type { Book, Admin };
