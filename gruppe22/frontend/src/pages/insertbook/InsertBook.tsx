@@ -11,7 +11,7 @@ export default function InsertBook() {
 
   function handleAddBook() {
     {
-      /* Maybe ensure that user is in fact */
+      /* Maybe ensure that user is in fact admin here? */
     }
     if (titleInputRef != null) {
       addBook();
