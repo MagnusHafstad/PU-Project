@@ -7,10 +7,12 @@ export default function InsertBook() {
   const photoInputRef = useRef<HTMLInputElement>(null);
   const descriptionInputRef = useRef<HTMLTextAreaElement>(null);
   
-
+  function handleAddBook() {
+    console.log("Submitted");
+  }
 
   return (
-    <form>
+    <form action="handleAddBook">
       <div>
         <label htmlFor="title">Title</label>
         <input id="title" name="title" type="text" ref={titleInputRef} />
