@@ -57,7 +57,7 @@ export default function NavBar() {
         <Link to="/FindBooks" className="findBooksLink">
           FindBooks
         </Link>
-        {/* checks if a user is logged in and renders either the login page or the profile-page of the user */}
+        {/* checks if a user is logged in and renders the navbar with either "login" or "profile"  */}
         {username ? (
           <button className="loginPageLink">
             <Link className="findBooksLink" to={profileLink}>
