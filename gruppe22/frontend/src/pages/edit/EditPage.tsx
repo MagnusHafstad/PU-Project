@@ -23,6 +23,7 @@ export default function EditPage() {
     photo: "",
   };
 
+  // fetches the book from the database
   async function fetchBook() {
     getDocs(colRef).then((snapshot) => {
       setBook(

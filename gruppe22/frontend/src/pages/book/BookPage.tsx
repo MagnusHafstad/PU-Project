@@ -86,6 +86,7 @@ export default function BookPage() {
   const [uid, setUid] = React.useState<string>("");
   // const [username, setUsername] = React.useState<string | null>();
 
+  //fetches admin uids from db
   async function fetchAdmin() {
     console.log(uid);
     getDocs(colAdm).then((snapshot) => {
@@ -99,6 +100,7 @@ export default function BookPage() {
     });
   }
 
+  //checks if user is admin
   function checkAdmin() {
     if (admins?.find((a) => a.uid == uid)) {
       return true;
@@ -107,6 +109,7 @@ export default function BookPage() {
     }
   }
 
+  //find user and setsd uid to user.uid
   function getUser() {
     const auth = getAuth();
     return onAuthStateChanged(auth, (user) => {
