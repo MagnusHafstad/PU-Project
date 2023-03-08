@@ -1,4 +1,6 @@
+import { collection, getDocs, runTransaction, doc } from "firebase/firestore";
 import React, { useEffect, useRef } from "react";
+import { db } from "../../firebase-config";
 import "./InsertBook.css";
 
 export default function InsertBook() {
@@ -8,11 +10,45 @@ export default function InsertBook() {
   const descriptionInputRef = useRef<HTMLTextAreaElement>(null);
 
   function handleAddBook() {
-    console.log("Gaming Console");
+    {
+      /* Maybe ensure that user is in fact */
+    }
+    if (titleInputRef != null) {
+      addBook();
+    }
+  }
+
+  function addBook() {
+    const bookRef = doc(db, "books/");
+
+    return runTransaction(db, (transaction) => {
+      return transaction.get(bookRef).then((res) => {
+        if (!res.exists()) {
+          throw "Document does not exist!";
+        }
+
+        // Setting if no photo is provided. Currently if photo is provided it is still not added to firebase
+        if (photoInputRef == null) {
+          transaction.update(bookRef, {
+            auhtor: authorInputRef,
+            description: descriptionInputRef,
+            numUserRatings: 0,
+          });
+        } else {
+          // Commit to Firestore
+          transaction.update(bookRef, {
+            auhtor: authorInputRef,
+            description: descriptionInputRef,
+            numUserRatings: 0,
+            title: titleInputRef,
+          });
+        }
+      });
+    });
   }
 
   return (
-    <form>
+    <form onSubmit={handleAddBook}>
       <div>
         <label htmlFor="title">Title</label>
         <input id="title" name="title" type="text" required ref={titleInputRef} />
