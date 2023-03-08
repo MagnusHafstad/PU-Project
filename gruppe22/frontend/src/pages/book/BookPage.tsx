@@ -19,6 +19,8 @@ export default function BookPage() {
     author: "",
     description: "",
     photo: "",
+    avgUserRating: 0,
+    numUserRatings: 0,
   });
 
   const ratingInputRef = useRef<HTMLInputElement>(null);
