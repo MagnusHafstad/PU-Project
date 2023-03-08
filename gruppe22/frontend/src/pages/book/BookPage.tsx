@@ -135,6 +135,7 @@ export default function BookPage() {
   const [admins, setAdmins] = React.useState<Admin[] | undefined>();
   const [uid, setUid] = React.useState<string>("");
   const [hasRated, setHasRated] = React.useState<boolean>(false);
+  const [userRating, setUserRating] = React.useState<number>();
   // const [username, setUsername] = React.useState<string | null>();
 
   //fetches admin uids from db
@@ -171,6 +172,15 @@ export default function BookPage() {
     });
   }
 
+  // finds the rating the logged in user has given the book
+  function getUserRating() {
+    const ratingRef = collection(db, "books/" + bookID + "/userRatings");
+    const q = query(ratingRef, where("userID", "==", uid));
+    getDocs(q).then((snapshot) => {
+      setUserRating(snapshot.docs[0]?.get("rating"));
+    });
+  }
+
   //write a funtion to check if a user has already rated a book
   //if so, the rating should be displayed and the user should be able to change it
   //if not, the user should be able to add a rating
@@ -181,12 +191,12 @@ export default function BookPage() {
     const q = query(ratingRef, where("userID", "==", uid));
     getDocs(q).then((snapshot) => {
       if (snapshot.docs.length > 0) {
-        return true;
+        setHasRated(true);
       } else {
-        return false;
+        setHasRated(false);
       }
     });
-    return false;
+    //setHasRated(false);
   }
 
   useEffect(() => {
@@ -194,9 +204,15 @@ export default function BookPage() {
     getUser();
     fetchAdmin();
     checkRating();
+    getUserRating();
   }, []);
 
-  //return; // <div>This is a book page for {book?.title}
+  fetchBook();
+  getUser();
+  fetchAdmin();
+  checkRating();
+  getUserRating();
+
   return (
     <>
       <div className="BookDetParent">
@@ -218,11 +234,11 @@ export default function BookPage() {
           </div>
         )}
         <div>
-          <span> Avg rating: {book?.avgUserRating || "No ratings yet"}</span>
+          <span> Avgerage user rating: {book?.avgUserRating?.toFixed(1) || "No ratings yet"}</span>
           <br />
           {uid ? (
-            checkRating() ? (
-              <></>
+            hasRated ? (
+              <div> Your rating: {userRating}</div>
             ) : (
               <div>
                 <label htmlFor="Rating">Rating</label>
