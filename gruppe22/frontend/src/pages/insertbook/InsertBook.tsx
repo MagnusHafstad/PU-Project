@@ -1,4 +1,4 @@
-import { collection, setDoc, runTransaction, doc } from "firebase/firestore";
+import { collection, addDoc, runTransaction, doc } from "firebase/firestore";
 import React, { useEffect, useRef } from "react";
 import { db } from "../../firebase-config";
 import "./InsertBook.css";
@@ -14,40 +14,27 @@ export default function InsertBook() {
     {
       /* Maybe ensure that user is in fact admin here? */
     }
-    if (titleInputRef != null) {
+    const title = titleInputRef.current?.value.toString();
+    const author = authorInputRef.current?.value.toString();
+    // Lacks photo do to unsure how to add photo
+    const description = descriptionInputRef.current?.value.toString();
+    if (title != null && author != null && description != null) {
       console.log("Gaming Console");
-      addBook();
+      // Exclamation marks means that ts trust that the const are not null
+      addBook(title!, author!, description!);
     }
   };
 
-  function addBook() {
+  function addBook(title: string, author: string, description: string) {
     console.log("Nintendio");
-    const newBookRef = doc(collection(db, "books"));
-    console.log(newBookRef);
+    // const newBookRef = doc(collection(db, "books"));
+    // console.log(newBookRef);
 
-    return runTransaction(db, (transaction) => {
-      return transaction.get(newBookRef).then((res) => {
-        if (!res.exists()) {
-          throw "Document does not exist!";
-        }
-
-        // Setting if no photo is provided. Currently if photo is provided it is still not added to firebase
-        if (photoInputRef == null) {
-          transaction.update(newBookRef, {
-            auhtor: authorInputRef,
-            description: descriptionInputRef,
-            numUserRatings: 0,
-          });
-        } else {
-          // Commit to Firestore
-          transaction.update(newBookRef, {
-            auhtor: authorInputRef,
-            description: descriptionInputRef,
-            numUserRatings: 0,
-            title: titleInputRef,
-          });
-        }
-      });
+    const newBookRef = addDoc(collection(db, "books"), {
+      auhtor: authorInputRef,
+      description: descriptionInputRef,
+      numUserRatings: 0,
+      title: titleInputRef,
     });
   }
 
