@@ -1,4 +1,4 @@
-import { collection, getDocs, runTransaction, doc } from "firebase/firestore";
+import { collection, setDoc, runTransaction, doc } from "firebase/firestore";
 import React, { useEffect, useRef } from "react";
 import { db } from "../../firebase-config";
 import "./InsertBook.css";
@@ -9,17 +9,21 @@ export default function InsertBook() {
   const photoInputRef = useRef<HTMLInputElement>(null);
   const descriptionInputRef = useRef<HTMLTextAreaElement>(null);
 
-  function handleAddBook() {
+  const handleAddBook = (event: { preventDefault: () => void }) => {
+    event.preventDefault();
     {
       /* Maybe ensure that user is in fact admin here? */
     }
     if (titleInputRef != null) {
       addBook();
     }
-  }
+  };
 
   function addBook() {
     const bookRef = doc(db, "books/");
+    console.log(bookRef);
+
+    setDoc(bookRef, null);
 
     return runTransaction(db, (transaction) => {
       return transaction.get(bookRef).then((res) => {
