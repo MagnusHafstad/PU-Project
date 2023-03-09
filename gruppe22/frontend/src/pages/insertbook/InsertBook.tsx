@@ -15,32 +15,32 @@ export default function InsertBook() {
       /* Maybe ensure that user is in fact admin here? */
     }
     if (titleInputRef != null) {
+      console.log("Gaming Console");
       addBook();
     }
   };
 
   function addBook() {
-    const bookRef = doc(db, "books/");
-    console.log(bookRef);
-
-    setDoc(bookRef, null);
+    console.log("Nintendio");
+    const newBookRef = doc(collection(db, "books"));
+    console.log(newBookRef);
 
     return runTransaction(db, (transaction) => {
-      return transaction.get(bookRef).then((res) => {
+      return transaction.get(newBookRef).then((res) => {
         if (!res.exists()) {
           throw "Document does not exist!";
         }
 
         // Setting if no photo is provided. Currently if photo is provided it is still not added to firebase
         if (photoInputRef == null) {
-          transaction.update(bookRef, {
+          transaction.update(newBookRef, {
             auhtor: authorInputRef,
             description: descriptionInputRef,
             numUserRatings: 0,
           });
         } else {
           // Commit to Firestore
-          transaction.update(bookRef, {
+          transaction.update(newBookRef, {
             auhtor: authorInputRef,
             description: descriptionInputRef,
             numUserRatings: 0,
