@@ -18,20 +18,18 @@ export default function InsertBook() {
     const newAuthor = authorInputRef.current?.value.toString();
     // Lacks photo do to unsure how to add photo
     const newDescription = descriptionInputRef.current?.value.toString();
+
     if (newTitle != null && newAuthor != null && newDescription != null) {
-      console.log("Gaming Console");
       // Exclamation marks means that ts trust that the const are not null
       addBook(newTitle!, newAuthor!, newDescription!);
     }
   };
 
   function addBook(newTitle: string, newAuthor: string, newDescription: string) {
-    console.log("Nintendio");
-    // const newBookRef = doc(collection(db, "books"));
-    // console.log(newBookRef);
+    console.log(newDescription);
 
     const newBookRef = addDoc(collection(db, "books"), {
-      auhtor: newAuthor,
+      author: newAuthor,
       description: newDescription,
       numUserRatings: 0,
       title: newTitle,
