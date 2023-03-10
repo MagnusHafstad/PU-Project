@@ -14,27 +14,27 @@ export default function InsertBook() {
     {
       /* Maybe ensure that user is in fact admin here? */
     }
-    const title = titleInputRef.current?.value.toString();
-    const author = authorInputRef.current?.value.toString();
+    const newTitle = titleInputRef.current?.value.toString();
+    const newAuthor = authorInputRef.current?.value.toString();
     // Lacks photo do to unsure how to add photo
-    const description = descriptionInputRef.current?.value.toString();
-    if (title != null && author != null && description != null) {
+    const newDescription = descriptionInputRef.current?.value.toString();
+    if (newTitle != null && newAuthor != null && newDescription != null) {
       console.log("Gaming Console");
       // Exclamation marks means that ts trust that the const are not null
-      addBook(title!, author!, description!);
+      addBook(newTitle!, newAuthor!, newDescription!);
     }
   };
 
-  function addBook(title: string, author: string, description: string) {
+  function addBook(newTitle: string, newAuthor: string, newDescription: string) {
     console.log("Nintendio");
     // const newBookRef = doc(collection(db, "books"));
     // console.log(newBookRef);
 
     const newBookRef = addDoc(collection(db, "books"), {
-      auhtor: authorInputRef,
-      description: descriptionInputRef,
+      auhtor: newAuthor,
+      description: newDescription,
       numUserRatings: 0,
-      title: titleInputRef,
+      title: newTitle,
     });
   }
 
