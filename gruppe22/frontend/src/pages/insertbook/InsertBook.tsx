@@ -1,7 +1,9 @@
-import { collection, addDoc, runTransaction, doc } from "firebase/firestore";
+import { collection, addDoc, getDocs, runTransaction, doc } from "firebase/firestore";
 import React, { useEffect, useRef } from "react";
 import { db, storage } from "../../firebase-config";
 import { ref, uploadBytesResumable } from "firebase/storage";
+import { Admin } from "../../types";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import "./InsertBook.css";
 
 export default function InsertBook() {
@@ -9,6 +11,47 @@ export default function InsertBook() {
   const authorInputRef = useRef<HTMLInputElement>(null);
   const photoInputRef = useRef<HTMLInputElement>(null);
   const descriptionInputRef = useRef<HTMLTextAreaElement>(null);
+
+  //the code below is for checking if user is admin or not
+  const colAdm = collection(db, "admin");
+
+  const [admins, setAdmins] = React.useState<Admin[] | undefined>();
+  const [uid, setUid] = React.useState<string>("");
+  // const [username, setUsername] = React.useState<string | null>();
+
+  //fetches admin uids from db
+  async function fetchAdmin() {
+    console.log(uid);
+    getDocs(colAdm).then((snapshot) => {
+      setAdmins(
+        snapshot.docs.map((doc) => {
+          return {
+            uid: doc.get("uid"),
+          };
+        })
+      );
+    });
+  }
+
+  //checks if user is admin
+  function checkAdmin() {
+    if (admins?.find((a) => a.uid == uid)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //find user and setsd uid to user.uid
+  function getUser() {
+    const auth = getAuth();
+    return onAuthStateChanged(auth, (user) => {
+      if (user != null) {
+        // setUsername(user.email);
+        setUid(user.uid);
+      }
+    });
+  }
 
   const handleAddBook = (event: { preventDefault: () => void }) => {
     event.preventDefault();
@@ -77,7 +120,7 @@ export default function InsertBook() {
         <label htmlFor="description">Description</label>
         <textarea id="description" name="description" required ref={descriptionInputRef} />
       </div>
-      <button type="submit">Insert</button>
+      {checkAdmin() ? <button type="submit">Insert</button> : <p>You have to be an admin to submit a newBook</p>}
     </form>
   );
 }
