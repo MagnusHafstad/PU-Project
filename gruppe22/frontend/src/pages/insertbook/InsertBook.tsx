@@ -21,15 +21,15 @@ export default function InsertBook() {
     const newDescription = descriptionInputRef.current?.value.toString();
     const files = photoInputRef.current?.files;
     if (newTitle != null && newAuthor != null && newDescription != null) {
-      // no photos might have been uploaded so have to confirm that there is a newPhoto to be added
-      if (files != null) {
-        const newPhoto = files[0];
-        // Exclamation marks means that ts trust that the const are not null
-        addBook(newTitle!, newAuthor!, newPhoto, newPhoto.name, newDescription!);
-      } else {
+      // files is a tricky const to check since there are three possible values it might have if no photo has been uploaded
+      if (files == null || files == undefined || files[0] == null) {
         // Exclamation marks means that ts trust that the const are not null
         // "no_image.jpg" ensures that the default image is used
         addBook(newTitle!, newAuthor!, null, "no_image.jpg", newDescription!);
+      } else {
+        const newPhoto = files[0];
+        // Exclamation marks means that ts trust that the const are not null
+        addBook(newTitle!, newAuthor!, newPhoto, newPhoto.name, newDescription!);
       }
     }
   };
