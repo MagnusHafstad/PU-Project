@@ -1,6 +1,7 @@
 import { collection, addDoc, runTransaction, doc } from "firebase/firestore";
 import React, { useEffect, useRef } from "react";
-import { db } from "../../firebase-config";
+import { db, storage } from "../../firebase-config";
+import { ref, uploadBytesResumable } from "firebase/storage";
 import "./InsertBook.css";
 
 export default function InsertBook() {
@@ -46,6 +47,13 @@ export default function InsertBook() {
         numUserRatings: 0,
         photo: photoName,
         title: newTitle,
+      });
+      // creates the filepath for the image
+      const storageRefImages = ref(storage, "images/" + photoName);
+      // uploads the image into firebase.
+      // the method being resumable allows the upload to be paused, which is more complicated than needed. However it is not detrimental to use.
+      uploadBytesResumable(storageRefImages, newPhoto).then((snapshot) => {
+        console.log("Uploaded a file!");
       });
     }
   }
