@@ -20,8 +20,8 @@ export default function InsertBook() {
     // Lacks photo do to unsure how to add photo
     const newDescription = descriptionInputRef.current?.value.toString();
     const files = photoInputRef.current?.files;
-    // no photos might have been uploaded so have to confirm that there is a newPhoto to be added
     if (newTitle != null && newAuthor != null && newDescription != null) {
+      // no photos might have been uploaded so have to confirm that there is a newPhoto to be added
       if (files != null) {
         const newPhoto = files[0];
         // Exclamation marks means that ts trust that the const are not null
@@ -39,21 +39,15 @@ export default function InsertBook() {
     console.log(newPhoto);
     console.log(photoName);
 
-    if (newPhoto == null) {
-      const newBookRef = addDoc(collection(db, "books"), {
-        author: newAuthor,
-        description: newDescription,
-        numUserRatings: 0,
-        title: newTitle,
-      });
-    } else {
-      const newBookRef = addDoc(collection(db, "books"), {
-        author: newAuthor,
-        description: newDescription,
-        numUserRatings: 0,
-        photo: photoName,
-        title: newTitle,
-      });
+    const newBookRef = addDoc(collection(db, "books"), {
+      author: newAuthor,
+      description: newDescription,
+      numUserRatings: 0,
+      photo: photoName,
+      title: newTitle,
+    });
+
+    if (newPhoto != null) {
       // creates the filepath for the image
       const storageRefImages = ref(storage, "images/" + photoName);
       // uploads the image into firebase.
