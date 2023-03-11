@@ -19,12 +19,18 @@ export default function InsertBook() {
     const newAuthor = authorInputRef.current?.value.toString();
     // Lacks photo do to unsure how to add photo
     const newDescription = descriptionInputRef.current?.value.toString();
-    const newPhoto = photoInputRef.current?.value;
-    // splits up the filepath and pop retuns only the last segment. Which is the filename
-    const photoName = photoInputRef.current?.value.split(/(\\|\/)/g).pop() || "";
+    const files = photoInputRef.current?.files;
+    // no photos might have been uploaded so have to confirm that there is a newPhoto to be added
     if (newTitle != null && newAuthor != null && newDescription != null) {
-      // Exclamation marks means that ts trust that the const are not null
-      addBook(newTitle!, newAuthor!, newPhoto, photoName, newDescription!);
+      if (files != null) {
+        const newPhoto = files[0];
+        // Exclamation marks means that ts trust that the const are not null
+        addBook(newTitle!, newAuthor!, newPhoto, newPhoto.name, newDescription!);
+      } else {
+        // Exclamation marks means that ts trust that the const are not null
+        // "no_image.jpg" ensures that the default image is used
+        addBook(newTitle!, newAuthor!, null, "no_image.jpg", newDescription!);
+      }
     }
   };
 
@@ -33,7 +39,7 @@ export default function InsertBook() {
     console.log(newPhoto);
     console.log(photoName);
 
-    if (photoInputRef == null) {
+    if (newPhoto == null) {
       const newBookRef = addDoc(collection(db, "books"), {
         author: newAuthor,
         description: newDescription,
