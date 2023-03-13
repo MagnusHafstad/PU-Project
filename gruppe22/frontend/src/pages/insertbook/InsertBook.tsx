@@ -9,6 +9,7 @@ import "./InsertBook.css";
 export default function InsertBook() {
   const titleInputRef = useRef<HTMLInputElement>(null);
   const authorInputRef = useRef<HTMLInputElement>(null);
+  const publicationYearInputRef = useRef<HTMLInputElement>(null);
   const photoInputRef = useRef<HTMLInputElement>(null);
   const descriptionInputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -60,6 +61,8 @@ export default function InsertBook() {
     }
     const newTitle = titleInputRef.current?.value.toString();
     const newAuthor = authorInputRef.current?.value.toString();
+    // required should prevent a value that isn't a number from being entered
+    const newPublicationYear = parseInt(publicationYearInputRef.current?.value || "0");
     // Lacks photo do to unsure how to add photo
     const newDescription = descriptionInputRef.current?.value.toString();
     const files = photoInputRef.current?.files;
@@ -68,16 +71,23 @@ export default function InsertBook() {
       if (files == null || files == undefined || files[0] == null) {
         // Exclamation marks means that ts trust that the const are not null
         // "no_image.jpg" ensures that the default image is used
-        addBook(newTitle!, newAuthor!, null, "no_image.jpg", newDescription!);
+        addBook(newTitle!, newAuthor!, newPublicationYear, null, "no_image.jpg", newDescription!);
       } else {
         const newPhoto = files[0];
         // Exclamation marks means that ts trust that the const are not null
-        addBook(newTitle!, newAuthor!, newPhoto, newPhoto.name, newDescription!);
+        addBook(newTitle!, newAuthor!, newPublicationYear, newPhoto, newPhoto.name, newDescription!);
       }
     }
   };
 
-  function addBook(newTitle: string, newAuthor: string, newPhoto: any, photoName: string, newDescription: string) {
+  function addBook(
+    newTitle: string,
+    newAuthor: string,
+    newPublicationYear: number,
+    newPhoto: any,
+    photoName: string,
+    newDescription: string
+  ) {
     console.log(newDescription);
     console.log(newPhoto);
     console.log(photoName);
@@ -88,6 +98,7 @@ export default function InsertBook() {
       numUserRatings: 0,
       photo: photoName,
       title: newTitle,
+      publicationYear: newPublicationYear,
     });
 
     if (newPhoto != null) {
@@ -112,6 +123,17 @@ export default function InsertBook() {
         <input id="author" name="author" type="text" required ref={authorInputRef} />
       </div>
       <div>
+        <label htmlFor="author">Publication year</label>
+        <input
+          id="publicationYear"
+          name="publicationYear"
+          type="number"
+          step="1"
+          required
+          ref={publicationYearInputRef}
+        />
+      </div>
+      <div>
         <label htmlFor="photo">Photo</label>
         <input id="photo" name="filename" type="file" accept="image/png, image/gif, image/jpeg" ref={photoInputRef} />
       </div>
@@ -120,7 +142,7 @@ export default function InsertBook() {
         <label htmlFor="description">Description</label>
         <textarea id="description" name="description" required ref={descriptionInputRef} />
       </div>
-      {checkAdmin() ? <button type="submit">Insert</button> : <p>You have to be an admin to submit a newBook</p>}
+      {checkAdmin() ? <p>You have to be an admin to submit a newBook</p> : <button type="submit">Insert</button>}
     </form>
   );
 }
