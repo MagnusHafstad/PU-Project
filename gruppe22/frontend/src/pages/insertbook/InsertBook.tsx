@@ -4,6 +4,8 @@ import { db, storage } from "../../firebase-config";
 import { ref, uploadBytesResumable } from "firebase/storage";
 import { Admin } from "../../types";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+// a premade tag made for selecting mutiple elements that was made with typescript not javascript like Select from react-select.
+// package retrieved from: https://www.npmjs.com/package/react-multi-select-component
 import { MultiSelect } from "react-multi-select-component";
 import "./InsertBook.css";
 
