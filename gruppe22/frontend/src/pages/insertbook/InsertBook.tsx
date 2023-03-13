@@ -20,6 +20,12 @@ export default function InsertBook() {
   const [uid, setUid] = React.useState<string>("");
   // const [username, setUsername] = React.useState<string | null>();
 
+  useEffect(() => {
+    getUser();
+    fetchAdmin();
+    // fetchImage();
+  }, []);
+
   //fetches admin uids from db
   async function fetchAdmin() {
     console.log(uid);
@@ -142,7 +148,7 @@ export default function InsertBook() {
         <label htmlFor="description">Description</label>
         <textarea id="description" name="description" required ref={descriptionInputRef} />
       </div>
-      {checkAdmin() ? <p>You have to be an admin to submit a newBook</p> : <button type="submit">Insert</button>}
+      {checkAdmin() ? <button type="submit">Insert</button> : <p>You have to be an admin to submit a newBook</p>}
     </form>
   );
 }
