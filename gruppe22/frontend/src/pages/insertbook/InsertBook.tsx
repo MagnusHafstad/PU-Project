@@ -78,7 +78,6 @@ export default function InsertBook() {
     const newAuthor = authorInputRef.current?.value.toString();
     // required should prevent a value that isn't a number from being entered
     const newPublicationYear = parseInt(publicationYearInputRef.current?.value || "0");
-    // Lacks photo do to unsure how to add photo
     const newDescription = descriptionInputRef.current?.value.toString();
     const files = photoInputRef.current?.files;
     if (newTitle != null && newAuthor != null && newDescription != null) {
@@ -86,11 +85,11 @@ export default function InsertBook() {
       if (files == null || files == undefined || files[0] == null) {
         // Exclamation marks means that ts trust that the const are not null
         // "no_image.jpg" ensures that the default image is used
-        addBook(newTitle!, newAuthor!, newPublicationYear, null, "no_image.jpg", newDescription!);
+        addBook(newTitle!, newAuthor!, newPublicationYear, selected, null, "no_image.jpg", newDescription!);
       } else {
         const newPhoto = files[0];
         // Exclamation marks means that ts trust that the const are not null
-        addBook(newTitle!, newAuthor!, newPublicationYear, newPhoto, newPhoto.name, newDescription!);
+        addBook(newTitle!, newAuthor!, newPublicationYear, selected, newPhoto, newPhoto.name, newDescription!);
       }
     }
   };
@@ -99,6 +98,7 @@ export default function InsertBook() {
     newTitle: string,
     newAuthor: string,
     newPublicationYear: number,
+    genres: any,
     newPhoto: any,
     photoName: string,
     newDescription: string
@@ -125,6 +125,8 @@ export default function InsertBook() {
         console.log("Uploaded a file!");
       });
     }
+
+    console.log(genres);
   }
 
   return (
@@ -148,7 +150,9 @@ export default function InsertBook() {
           ref={publicationYearInputRef}
         />
       </div>
-      <MultiSelect options={genres} value={selected} onChange={setSelected} labelledBy="Select" />
+      <div className="MultiSelect">
+        <MultiSelect options={genres} value={selected} onChange={setSelected} labelledBy="Select" />
+      </div>
       <div>
         <label htmlFor="photo">Photo</label>
         <input id="photo" name="filename" type="file" accept="image/png, image/gif, image/jpeg" ref={photoInputRef} />
