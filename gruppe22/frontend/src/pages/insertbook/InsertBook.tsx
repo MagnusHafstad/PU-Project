@@ -128,7 +128,14 @@ export default function InsertBook() {
       });
     }
 
-    console.log(genres);
+    // genres should perhaps be a separate thing on firebase like users, but for now this solution is sufficent
+    let fieldName;
+    genres.forEach(
+      (element: any) => (fieldName = element.value.toString()),
+      addDoc(collection(db, "books"), {
+        fieldName: fieldName,
+      })
+    );
   }
 
   return (
