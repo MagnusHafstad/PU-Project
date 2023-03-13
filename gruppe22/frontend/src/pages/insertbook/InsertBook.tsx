@@ -1,9 +1,10 @@
 import { collection, addDoc, getDocs, runTransaction, doc } from "firebase/firestore";
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { db, storage } from "../../firebase-config";
 import { ref, uploadBytesResumable } from "firebase/storage";
 import { Admin } from "../../types";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { MultiSelect } from "react-multi-select-component";
 import "./InsertBook.css";
 
 export default function InsertBook() {
@@ -19,6 +20,14 @@ export default function InsertBook() {
   const [admins, setAdmins] = React.useState<Admin[] | undefined>();
   const [uid, setUid] = React.useState<string>("");
   // const [username, setUsername] = React.useState<string | null>();
+
+  const genres = [
+    { label: "Barnebok", value: "barnebok" },
+    { label: "Sakprosa", value: "sakprosa" },
+    { label: "Fantasy", value: "fantasy" },
+  ];
+
+  const [selected, setSelected] = useState([]);
 
   useEffect(() => {
     getUser();
@@ -139,6 +148,7 @@ export default function InsertBook() {
           ref={publicationYearInputRef}
         />
       </div>
+      <MultiSelect options={genres} value={selected} onChange={setSelected} labelledBy="Select" />
       <div>
         <label htmlFor="photo">Photo</label>
         <input id="photo" name="filename" type="file" accept="image/png, image/gif, image/jpeg" ref={photoInputRef} />
