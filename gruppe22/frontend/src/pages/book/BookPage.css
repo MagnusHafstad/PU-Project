@@ -1,0 +1,22 @@
+.BookDetParent {
+    background-color: #fcf7f8;
+    padding-left: 10vw;
+    padding-right: 10vw;
+    padding-top: 10px;
+    padding-bottom: 300px;
+  }
+  
+  .BookDet {
+    float: right;
+    padding-left: 10px;
+  }
+  
+  .BookDetPhoto {
+    float: right;
+    padding-left: 10px;
+    max-width: 400px;
+    height: auto;
+    outline: 5px;
+    outline-color: #4E8098;
+  }
+  
