@@ -6,10 +6,16 @@ type Book = {
   photo: string;
   avgUserRating?: number;
   numUserRatings: number;
+  avgProfRating?: number;
+  numProfRatings: number;
 };
 
 type Admin = {
   uid: string;
 };
 
-export type { Book, Admin };
+type Prof = {
+  uid: string;
+};
+
+export type { Book, Admin, Prof };

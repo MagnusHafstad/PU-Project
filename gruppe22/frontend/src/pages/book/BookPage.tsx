@@ -3,7 +3,7 @@ import { ref, getDownloadURL } from "firebase/storage";
 import React, { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../firebase-config";
-import { Book } from "../../types";
+import { Book, Prof } from "../../types";
 import { storage } from "../../firebase-config";
 import { Admin } from "../../types";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -21,9 +21,12 @@ export default function BookPage() {
     photo: "",
     avgUserRating: 0,
     numUserRatings: 0,
+    avgProfRating: 0,
+    numProfRatings: 0,
   });
 
   const ratingInputRef = useRef<HTMLInputElement>(null);
+  const profRatingInputRef = useRef<HTMLInputElement>(null);
 
   let currentBook: Book = {
     id: "",
@@ -33,6 +36,8 @@ export default function BookPage() {
     photo: "",
     avgUserRating: 0,
     numUserRatings: 0,
+    avgProfRating: 0,
+    numProfRatings: 0,
   };
 
   async function fetchBook() {
@@ -46,6 +51,8 @@ export default function BookPage() {
           photo: snapshot.docs.find((doc) => doc.id == bookID)?.get("photo"),
           avgUserRating: snapshot.docs.find((doc) => doc.id == bookID)?.get("avgUserRating"),
           numUserRatings: snapshot.docs.find((doc) => doc.id == bookID)?.get("numUserRatings"),
+          avgProfRating: snapshot.docs.find((doc) => doc.id == bookID)?.get("avgProfRating"),
+          numProfRatings: snapshot.docs.find((doc) => doc.id == bookID)?.get("numProfRatings"),
         })
       );
     });
@@ -114,7 +121,44 @@ export default function BookPage() {
         // adding rating to the collection
         const newDoc = doc(ratingRef);
         transaction.set(newDoc, { rating: rating, userID: uid });
-        //legg til bruker-id også
+      });
+    });
+  }
+
+  async function addProfRating(rating: number) {
+    const bookRef = doc(db, "books/" + bookID);
+    const ratingRef = collection(db, "books/" + bookID + "/profRatings");
+
+    return runTransaction(db, (transaction) => {
+      return transaction.get(bookRef).then((res) => {
+        if (!res.exists()) {
+          throw "Document does not exist!";
+        }
+
+        // Setting the first rating of a book
+        if (res.data().numProfRatings === 0) {
+          transaction.update(bookRef, {
+            numProfRatings: 1,
+            avgProfRating: rating,
+          });
+        } else {
+          // Compute new number of ratings
+          const newNumRatings = res.data().numProfRatings + 1;
+
+          // Compute new average rating
+          const oldRatingTotal = res.data().avgProfRating * res.data().numProfRatings;
+          const newAvgRating = (oldRatingTotal + rating) / newNumRatings;
+
+          // Commit to Firestore
+          transaction.update(bookRef, {
+            numProfRatings: newNumRatings,
+            avgProfRating: newAvgRating,
+          });
+        }
+
+        // adding rating to the collection
+        const newDoc = doc(ratingRef);
+        transaction.set(newDoc, { rating: rating, userID: uid });
       });
     });
   }
@@ -130,12 +174,27 @@ export default function BookPage() {
     }
   }
 
+  function handleAddProfRating() {
+    const rating = parseInt(profRatingInputRef.current?.value || "0");
+    //må sjekke innlogging
+    if (rating >= 0 && rating <= 10) {
+      addProfRating(rating);
+      checkRating();
+    } else {
+      //Feilhåntering
+    }
+  }
+
   //the code below is for checking if user is admin or not
   const colAdm = collection(db, "admin");
+  const colProf = collection(db, "professionals");
   const [admins, setAdmins] = React.useState<Admin[] | undefined>();
+  const [professionals, setProfessionals] = React.useState<Prof[] | undefined>();
   const [uid, setUid] = React.useState<string>("");
   const [hasRated, setHasRated] = React.useState<boolean>(false);
+  const [profHasRated, setProfHasRated] = React.useState<boolean>(false);
   const [userRating, setUserRating] = React.useState<number>();
+  const [profRating, setProfRating] = React.useState<number>();
   // const [username, setUsername] = React.useState<string | null>();
 
   //fetches admin uids from db
@@ -152,9 +211,32 @@ export default function BookPage() {
     });
   }
 
+  //fetches professionals uids from db
+  async function fetchProf() {
+    console.log(uid);
+    getDocs(colProf).then((snapshot) => {
+      setProfessionals(
+        snapshot.docs.map((doc) => {
+          return {
+            uid: doc.get("uid"),
+          };
+        })
+      );
+    });
+  }
+
   //checks if user is admin
   function checkAdmin() {
     if (admins?.find((a) => a.uid == uid)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //checks if user is professional
+  function checkProf() {
+    if (professionals?.find((a) => a.uid == uid)) {
       return true;
     } else {
       return false;
@@ -174,10 +256,20 @@ export default function BookPage() {
 
   // finds the rating the logged in user has given the book
   function getUserRating() {
+    //gets regular user rating
     const ratingRef = collection(db, "books/" + bookID + "/userRatings");
     const q = query(ratingRef, where("userID", "==", uid));
     getDocs(q).then((snapshot) => {
       setUserRating(snapshot.docs[0]?.get("rating"));
+    });
+  }
+
+  function getProfRating() {
+    // gets professional user rating
+    const profRatingRef = collection(db, "books/" + bookID + "/profRatings");
+    const pq = query(profRatingRef, where("userID", "==", uid));
+    getDocs(pq).then((snapshot) => {
+      setProfRating(snapshot.docs[0]?.get("rating"));
     });
   }
 
@@ -196,22 +288,40 @@ export default function BookPage() {
         setHasRated(false);
       }
     });
-    //setHasRated(false);
+  }
+
+  function checkProfRating() {
+    //checks if the user has put in a professional rating
+    const profRatingRef = collection(db, "books/" + bookID + "/profRatings");
+    const pq = query(profRatingRef, where("userID", "==", uid));
+    getDocs(pq).then((snapshot) => {
+      if (snapshot.docs.length > 0) {
+        setProfHasRated(true);
+      } else {
+        setProfHasRated(false);
+      }
+    });
   }
 
   useEffect(() => {
     fetchBook();
     getUser();
     fetchAdmin();
+    fetchProf();
     checkRating();
+    checkProfRating();
     getUserRating();
+    getProfRating();
   }, []);
 
   fetchBook();
   getUser();
   fetchAdmin();
+  fetchProf();
   checkRating();
+  checkProfRating();
   getUserRating();
+  getProfRating();
 
   return (
     <>
@@ -236,14 +346,29 @@ export default function BookPage() {
         <div>
           <span> Avgerage user rating: {book?.avgUserRating?.toFixed(1) || "No ratings yet"}</span>
           <br />
-          {uid ? (
+          <span> Avgerage professional rating: {book?.avgProfRating?.toFixed(1) || "No ratings yet"}</span>
+          <br />
+          {uid && !checkProf() ? (
             hasRated ? (
               <div> Your rating: {userRating}</div>
             ) : (
               <div>
-                <label htmlFor="Rating">Rating</label>
+                <label htmlFor="Rating">Rate the book</label>
                 <input id="Rating" name="Rating" type="number" min="0" max="10" step="1" ref={ratingInputRef} />
                 <button onClick={handleAddRating}>Add Rating</button>
+              </div>
+            )
+          ) : (
+            <></>
+          )}
+          {uid && checkProf() ? (
+            profHasRated ? (
+              <div> Your professional rating: {profRating}</div>
+            ) : (
+              <div>
+                <label htmlFor="Rating">Rate the book</label>
+                <input id="ProfRating" name="Rating" type="number" min="0" max="10" step="1" ref={profRatingInputRef} />
+                <button onClick={handleAddProfRating}>Add professional rating</button>
               </div>
             )
           ) : (

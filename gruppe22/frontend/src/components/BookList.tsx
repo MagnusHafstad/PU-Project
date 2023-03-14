@@ -22,6 +22,8 @@ export default function BookList() {
             photo: doc.get("photo"),
             avgUserRating: doc.get("avgUserRating"),
             numUserRatings: doc.get("numUserRatings"),
+            avgProfRating: doc.get("avgProfRating"),
+            numProfRatings: doc.get("numProfRatings"),
           };
         })
       );
