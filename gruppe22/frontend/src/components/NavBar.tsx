@@ -64,17 +64,17 @@ export default function NavBar() {
       <div className="profileButtonDiv">
         {/* checks if a user is logged in and renders the navbar with either "login" or "profile"  */}
         {username ? (
-          <Button className="profilePageButton" variant="contained">
-            <Link className="profileButtonLink" to={profileLink}>
+          <Link className="profileButtonLink" to={profileLink}>
+            <Button className="profilePageButton" variant="contained">
               Profile
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         ) : (
-          <Button variant="contained" className="loginPageButton">
-            <Link className="loginButtonLink" to="/login">
+          <Link className="loginButtonLink" to="/login">
+            <Button variant="contained" className="loginPageButton">
               Login
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         )}
       </div>
     </nav>
