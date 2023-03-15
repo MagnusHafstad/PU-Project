@@ -10,6 +10,7 @@
   outline-width: 3px;
   outline-color: #ffffff;
   color: rgb(255, 255, 255);
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 1);
 }
 
 .LinkToBook {
@@ -72,11 +73,15 @@
   outline-width: 3px;
   outline-color: white;
   align-content: center;
-  box-shadow: 50px 50px 50px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 1);
 }
 
 .ListTitle {
   color: white;
+  text-shadow: 2px 2px #000000;
 }
 
 
@@ -175,12 +180,18 @@
   font-size: 2rem;
   color: white;
   margin-left: 1rem;
+  text-shadow: 2px 2px #000000;
 }
 
 .findBooksLink:hover {
   font-size:2.5rem;
   transition: all 500ms;
   font-size-adjust: 20px;
+}
+
+.searchTitle {
+  color: rgb(255, 255, 255);
+  text-shadow: 2px 2px #000000;
 }
 
 
@@ -244,11 +255,7 @@
   margin-left: auto;
 }
 
-.BookList {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
-}
+
 
 .ListTitle {
   font-size: 2rem;
@@ -267,28 +274,16 @@
   border-radius: 20px;
   display: flex;
   align-items: center;
+  box-shadow: 1px 1px 15px 1px rgba(0, 0, 0, 1);
 }
 
-.loginPageButton,
-.profilePageButton {
-  text-align: center;
-  background-color: #90C2E7;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  cursor: pointer;
-  font-size: 16px;
-  text-decoration: none;
-  transition-duration: 0.4s;
+.profileButtonDiv {
   position: absolute;
-  top: 30px;
+  top: 40px;
   right: 50px;
 }
 
-.loginPageButton:hover,
-.profilePageButton:hover {
-  background-color: #65AACC;
-}
+
 
 .profilePageButton:before {
   content: "\f007   ";
@@ -314,6 +309,23 @@
   padding: 1rem;
   padding-top: 0;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  background-color: #4E8098;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 30px;
+  padding-top: 10px;
+  border-radius: 10px;
+  outline-style: solid;
+  outline-width: 3px;
+  outline-color: white;
+  align-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 1);
 }
 
 
