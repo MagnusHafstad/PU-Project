@@ -313,16 +313,16 @@ export default function BookPage() {
     checkProfRating();
     getUserRating();
     getProfRating();
-  }, []);
+  }, [hasRated, profHasRated, userRating]);
 
-  fetchBook();
-  getUser();
-  fetchAdmin();
-  fetchProf();
-  checkRating();
-  checkProfRating();
-  getUserRating();
-  getProfRating();
+  // fetchBook();
+  // getUser();
+  // fetchAdmin();
+  // fetchProf();
+  // checkRating();
+  // checkProfRating();
+  // getUserRating();
+  // getProfRating();
 
   return (
     <>
