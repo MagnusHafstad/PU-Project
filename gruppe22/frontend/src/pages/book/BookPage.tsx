@@ -8,6 +8,7 @@ import { storage } from "../../firebase-config";
 import { Admin } from "../../types";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import EditButton from "../../components/EditButton";
+import "./BookPage.css";
 
 export default function BookPage() {
   const { bookID } = useParams();

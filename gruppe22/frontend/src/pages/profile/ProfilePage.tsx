@@ -8,6 +8,7 @@ import admButton from "../../components/AdminButton";
 import SignOut from "../../components/SignOut";
 import { db } from "../../firebase-config";
 import { Admin } from "../../types";
+import "./ProfilePage.css";
 
 export default function ProfilePage() {
   const colRef = collection(db, "admin");
@@ -53,17 +54,12 @@ export default function ProfilePage() {
   }, []);
 
   return (
-    <div>
+    <div className="ProfilePage">
       <h1>Profile</h1>
-      <p>{username}</p>
-      <p>{uid}</p>
-      <p>
-        {admins?.map((a) => {
-          return a.uid;
-        })}
-      </p>
+      <p>Username: {username}</p>
+      <p>User id:{uid}</p>
       <SignOut />
-      {checkAdmin() ? <AdminButton /> : ""};
+      {checkAdmin() ? <AdminButton /> : ""}
     </div>
   );
 }

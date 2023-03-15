@@ -7,7 +7,7 @@ import "./Styles.css";
 export default function SearchBar() {
   return (
     <div className="Search">
-      <h1>Find your favorite books</h1>
+      <h1 className="searchTitle">Find your favorite books</h1>
       <InstantSearch indexName="ibdb" searchClient={algoliaClient}>
         <div className="right-panel">
           <SearchBox />

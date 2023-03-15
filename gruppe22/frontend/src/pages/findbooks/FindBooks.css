@@ -1,8 +1,7 @@
 .FindBooks {
-  display: flex;
   width: auto;
   height: auto;
-  background-color: #f8f2dc;
+  background-color: #fcf7f8;
   padding-left: 10vw;
   padding-right: 10vw;
 }

@@ -18,7 +18,9 @@ import ProfilePage from "./pages/profile/ProfilePage";
 const App: React.FC = () => {
   return (
     <Router>
-      <NavBar />
+      <div className="background">
+        <NavBar />
+      </div>
       <div className="space"></div>
       <Routes>
         <Route path={"/"} element={<Home />} />

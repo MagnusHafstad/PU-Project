@@ -6,19 +6,7 @@
     text-decoration-line: none;
 }
 
-.loginPageLink{
-    float: right;
-    margin-right: 1vw;
-    background-color: #3f51b5;
-    color: #fff;
-    font-size: 1.2rem;
-    font-weight: bold;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
+
 
 .heading {
     text-transform: uppercase;
@@ -27,7 +15,7 @@
     margin: 40px 0;
     color: white;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    background-color: #9e6240;
+    background-color: #000000;
     outline-style: solid;
     outline-width: 3px;
     outline-color: white;
@@ -36,10 +24,9 @@
     padding-right: 10px;
 }
 
-.space{
-    width: 100%;
-    height: 10px;
-    background-color: #F8F2DC;
+.background {
+    height: 150px;
+    background-color: #fcf7f8;
+    padding-top: 20px;
 }
-
 

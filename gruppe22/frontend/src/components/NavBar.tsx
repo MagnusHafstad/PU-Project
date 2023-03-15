@@ -6,6 +6,8 @@ import React from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { Admin } from "../types";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import { Button } from "@mui/material";
 
 export default function NavBar() {
   const colRef = collection(db, "admin");
@@ -55,21 +57,24 @@ export default function NavBar() {
           <span className="heading">IBDB</span>
         </Link>
         <Link to="/FindBooks" className="findBooksLink">
-          FindBooks
+          Find books
         </Link>
+      </div>
+
+      <div className="profileButtonDiv">
         {/* checks if a user is logged in and renders the navbar with either "login" or "profile"  */}
         {username ? (
-          <button className="loginPageLink">
-            <Link className="findBooksLink" to={profileLink}>
+          <Button className="profilePageButton" variant="contained">
+            <Link className="profileButtonLink" to={profileLink}>
               Profile
             </Link>
-          </button>
+          </Button>
         ) : (
-          <button className="loginPageLink">
-            <Link className="findBooksLink" to="/login">
+          <Button variant="contained" className="loginPageButton">
+            <Link className="loginButtonLink" to="/login">
               Login
             </Link>
-          </button>
+          </Button>
         )}
       </div>
     </nav>
