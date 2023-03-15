@@ -78,7 +78,7 @@ export default function BookPage() {
   //Keeps newline in HTML conversion
   function paragraphise() {
     if (book !== undefined) {
-      return { __html: book.description.replace(/Newline/g, "<br /> <br /> ") };
+      return { __html: book.description.replace(/Newline/g, "<br /> <br /> ").replace("\n", "<br /> <br /> ") };
     } else return { __html: "no book" };
   }
 

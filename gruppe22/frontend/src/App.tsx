@@ -11,9 +11,6 @@ import EditPage from "./pages/edit/EditPage";
 import NotFound from "./pages/error/NotFound";
 import FindBooks from "./pages/findbooks/FindBooks";
 import Home from "./pages/home/Home";
-{
-  /* temporary solution for including InsertBook page */
-}
 import InsertBook from "./pages/insertbook/InsertBook";
 import LoginPage from "./pages/login/LoginPage";
 import ProfilePage from "./pages/profile/ProfilePage";
@@ -28,7 +25,6 @@ const App: React.FC = () => {
         <Route path={"/FindBooks"} element={<FindBooks />} />
         <Route path={"/BookPage/:bookID"} element={<BookPage />} />
         <Route path={"/AuthorPage"} element={<AuthorPage />} />
-        {/* temporary solution for including InsertBook page */}
         <Route path={"/InsertBook"} element={<InsertBook />} />
         <Route path={"*"} element={<NotFound />} />
         <Route path="/signup" element={<Signup />} />
