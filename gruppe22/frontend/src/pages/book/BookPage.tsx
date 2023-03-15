@@ -315,14 +315,14 @@ export default function BookPage() {
     getProfRating();
   }, []);
 
-  fetchBook();
-  getUser();
-  fetchAdmin();
-  fetchProf();
-  checkRating();
-  checkProfRating();
-  getUserRating();
-  getProfRating();
+  // fetchBook();
+  // getUser();
+  // fetchAdmin();
+  // fetchProf();
+  // checkRating();
+  // checkProfRating();
+  // getUserRating();
+  // getProfRating();
 
   return (
     <>
