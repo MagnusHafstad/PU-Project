@@ -59,6 +59,7 @@ export default function ProfilePage() {
       <p>Username: {username}</p>
       <p>User id:{uid}</p>
       <SignOut />
+      <br />
       {checkAdmin() ? <AdminButton /> : ""}
     </div>
   );

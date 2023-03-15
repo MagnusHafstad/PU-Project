@@ -8,6 +8,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 // package retrieved from: https://www.npmjs.com/package/react-multi-select-component
 import { MultiSelect } from "react-multi-select-component";
 import "./InsertBook.css";
+import { Button } from "@mui/material";
 
 export default function InsertBook() {
   const titleInputRef = useRef<HTMLInputElement>(null);
@@ -171,7 +172,13 @@ export default function InsertBook() {
         <label htmlFor="description">Description</label>
         <textarea id="description" name="description" required ref={descriptionInputRef} />
       </div>
-      {checkAdmin() ? <button type="submit">Insert</button> : <p>You have to be an admin to submit a newBook</p>}
+      {checkAdmin() ? (
+        <Button type="submit" variant="contained">
+          Insert
+        </Button>
+      ) : (
+        <p>You have to be an admin to submit a newBook</p>
+      )}
     </form>
   );
 }

@@ -1,6 +1,7 @@
 import { signOut } from "firebase/auth";
 import { useNavigate, Route } from "react-router-dom";
 import { auth } from "../firebase-config";
+import { Button } from "@mui/material";
 
 export default function AdminButton() {
   const navigate = useNavigate();
@@ -9,7 +10,9 @@ export default function AdminButton() {
   };
   return (
     <div>
-      <button onClick={handleAdmin}>Admin</button>
+      <Button onClick={handleAdmin} variant="contained">
+        Admin
+      </Button>
     </div>
   );
 }

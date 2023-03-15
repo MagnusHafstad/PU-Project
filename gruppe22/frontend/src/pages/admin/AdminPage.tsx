@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
+import "./AdminPage.css";
 
 export default function AdminPage() {
   return (
@@ -8,8 +10,8 @@ export default function AdminPage() {
       </div>
 
       <div>
-        <Link to="/InsertBook">
-          <button>Insert Book</button>
+        <Link to="/InsertBook" className="InsertBookLink">
+          <Button variant="contained">Insert Book</Button>
         </Link>
       </div>
     </div>

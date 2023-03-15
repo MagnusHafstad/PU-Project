@@ -1,5 +1,6 @@
 import { Params, useNavigate, useParams } from "react-router-dom";
 import { Book } from "../types";
+import { Button } from "@mui/material";
 
 // interface Props {
 //   book: Book;
@@ -14,7 +15,9 @@ export default function EditButton() {
   };
   return (
     <div>
-      <button onClick={handleEdit}>Edit</button>
+      <Button onClick={handleEdit} variant="contained">
+        Edit
+      </Button>
     </div>
   );
 }
