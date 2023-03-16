@@ -196,6 +196,8 @@ export default function BookPage() {
   const [profHasRated, setProfHasRated] = React.useState<boolean>(false);
   const [userRating, setUserRating] = React.useState<number>();
   const [profRating, setProfRating] = React.useState<number>();
+  const [isProf, setIsProf] = React.useState<boolean>(false);
+  const [isAdmin, setIsAdmin] = React.useState<boolean>(false);
   // const [username, setUsername] = React.useState<string | null>();
 
   //fetches admin uids from db
@@ -229,18 +231,18 @@ export default function BookPage() {
   //checks if user is admin
   function checkAdmin() {
     if (admins?.find((a) => a.uid == uid)) {
-      return true;
+      setIsAdmin(true);
     } else {
-      return false;
+      setIsAdmin(false);
     }
   }
 
   //checks if user is professional
   function checkProf() {
     if (professionals?.find((a) => a.uid == uid)) {
-      return true;
+      setIsProf(true);
     } else {
-      return false;
+      setIsProf(false);
     }
   }
 
@@ -313,7 +315,7 @@ export default function BookPage() {
     checkProfRating();
     getUserRating();
     getProfRating();
-  }, [admins, professionals, uid, hasRated, profHasRated, userRating, profRating]);
+  }, [uid, hasRated, profHasRated, userRating, profRating]);
 
   // fetchBook();
   // getUser();
@@ -349,7 +351,7 @@ export default function BookPage() {
           <br />
           <span> Avgerage professional rating: {book?.avgProfRating?.toFixed(1) || "No ratings yet"}</span>
           <br />
-          {uid && !checkProf() ? (
+          {uid && !isProf ? (
             hasRated ? (
               <div> Your rating: {userRating}</div>
             ) : (
@@ -362,7 +364,7 @@ export default function BookPage() {
           ) : (
             <></>
           )}
-          {uid && checkProf() ? (
+          {uid && isProf ? (
             profHasRated ? (
               <div> Your professional rating: {profRating}</div>
             ) : (
@@ -376,7 +378,7 @@ export default function BookPage() {
             <></>
           )}
         </div>
-        {checkAdmin() ? <EditButton /> : <></>}
+        {isAdmin ? <EditButton /> : <></>}
       </div>
     </>
   );
