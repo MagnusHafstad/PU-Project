@@ -18,9 +18,9 @@ export default function InsertBook() {
 
   //the code below is for checking if user is admin or not
   const colAdm = collection(db, "admin");
-
   const [admins, setAdmins] = React.useState<Admin[] | undefined>();
   const [uid, setUid] = React.useState<string>("");
+  const [isAdmin, setIsAdmin] = React.useState<boolean>(false);
   // const [username, setUsername] = React.useState<string | null>();
 
   const genres = [
@@ -54,9 +54,9 @@ export default function InsertBook() {
   //checks if user is admin
   function checkAdmin() {
     if (admins?.find((a) => a.uid == uid)) {
-      return true;
+      setIsAdmin(true);
     } else {
-      return false;
+      setIsAdmin(false);
     }
   }
 
@@ -171,7 +171,7 @@ export default function InsertBook() {
         <label htmlFor="description">Description</label>
         <textarea id="description" name="description" required ref={descriptionInputRef} />
       </div>
-      {checkAdmin() ? <button type="submit">Insert</button> : <p>You have to be an admin to submit a newBook</p>}
+      {isAdmin ? <button type="submit">Insert</button> : <p>You have to be an admin to submit a newBook</p>}
     </form>
   );
 }

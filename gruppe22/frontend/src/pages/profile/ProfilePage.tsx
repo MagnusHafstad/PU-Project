@@ -16,6 +16,7 @@ export default function ProfilePage() {
   const [admins, setAdmins] = React.useState<Admin[] | undefined>();
   const [uid, setUid] = React.useState<string>("");
   const [username, setUsername] = React.useState<string | null>();
+  const [isAdmin, setIsAdmin] = React.useState<boolean>(false);
 
   async function fetchAdmin() {
     console.log(uid);
@@ -30,11 +31,12 @@ export default function ProfilePage() {
     });
   }
 
-  function checkAdmin() {
+   //checks if user is admin
+   function checkAdmin() {
     if (admins?.find((a) => a.uid == uid)) {
-      return true;
+      setIsAdmin(true);
     } else {
-      return false;
+      setIsAdmin(false);
     }
   }
 
@@ -59,7 +61,7 @@ export default function ProfilePage() {
       <p>Username: {username}</p>
       <p>User id:{uid}</p>
       <SignOut />
-      {checkAdmin() ? <AdminButton /> : ""}
+      {isAdmin ? <AdminButton /> : ""}
     </div>
   );
 }
