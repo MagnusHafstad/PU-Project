@@ -313,7 +313,7 @@ export default function BookPage() {
     checkProfRating();
     getUserRating();
     getProfRating();
-  }, [hasRated, profHasRated, userRating]);
+  }, [admins, professionals, uid, hasRated, profHasRated, userRating, profRating]);
 
   // fetchBook();
   // getUser();
