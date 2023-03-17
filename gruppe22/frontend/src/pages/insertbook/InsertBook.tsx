@@ -35,7 +35,7 @@ export default function InsertBook() {
     getUser();
     fetchAdmin();
     // fetchImage();
-  }, []);
+  }, [uid]);
 
   //fetches admin uids from db
   async function fetchAdmin() {

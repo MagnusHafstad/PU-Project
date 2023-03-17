@@ -53,7 +53,7 @@ export default function ProfilePage() {
   useEffect(() => {
     getUser();
     fetchAdmin();
-  }, []);
+  }, [uid]);
 
   return (
     <div className="ProfilePage">
