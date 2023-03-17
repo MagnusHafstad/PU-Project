@@ -122,6 +122,7 @@ export default function BookPage() {
         // adding rating to the collection
         const newDoc = doc(ratingRef);
         transaction.set(newDoc, { rating: rating, userID: uid });
+        setUserRating(rating);
       });
     });
   }
@@ -160,6 +161,7 @@ export default function BookPage() {
         // adding rating to the collection
         const newDoc = doc(ratingRef);
         transaction.set(newDoc, { rating: rating, userID: uid });
+        setProfRating(rating);
       });
     });
   }
@@ -180,7 +182,7 @@ export default function BookPage() {
     //må sjekke innlogging
     if (rating >= 0 && rating <= 10) {
       addProfRating(rating);
-      checkRating();
+      checkProfRating();
     } else {
       //Feilhåntering
     }
@@ -196,6 +198,8 @@ export default function BookPage() {
   const [profHasRated, setProfHasRated] = React.useState<boolean>(false);
   const [userRating, setUserRating] = React.useState<number>();
   const [profRating, setProfRating] = React.useState<number>();
+  const [isProf, setIsProf] = React.useState<boolean>(false);
+  const [isAdmin, setIsAdmin] = React.useState<boolean>(false);
   // const [username, setUsername] = React.useState<string | null>();
 
   //fetches admin uids from db
@@ -279,16 +283,15 @@ export default function BookPage() {
   //if not, the user should be able to add a rating
 
   //checks if user has rated a book
-  async function checkRating() {
+  function checkRating() {
     const ratingRef = collection(db, "books/" + bookID + "/userRatings");
     const q = query(ratingRef, where("userID", "==", uid));
     getDocs(q).then((snapshot) => {
       if (snapshot.docs.length > 0) {
         setHasRated(true);
-      } else {
-        setHasRated(false);
       }
     });
+    setHasRated(false);
   }
 
   function checkProfRating() {
@@ -298,10 +301,9 @@ export default function BookPage() {
     getDocs(pq).then((snapshot) => {
       if (snapshot.docs.length > 0) {
         setProfHasRated(true);
-      } else {
-        setProfHasRated(false);
       }
     });
+    setProfHasRated(false);
   }
 
   useEffect(() => {
@@ -313,7 +315,7 @@ export default function BookPage() {
     checkProfRating();
     getUserRating();
     getProfRating();
-  }, [hasRated, profHasRated, userRating]);
+  }, [uid, userRating, profRating]);
 
   // fetchBook();
   // getUser();
@@ -376,7 +378,7 @@ export default function BookPage() {
             <></>
           )}
         </div>
-        {checkAdmin() ? <EditButton /> : <></>}
+        {/* {isAdmin ? <EditButton /> : <></>} */}
       </div>
     </>
   );

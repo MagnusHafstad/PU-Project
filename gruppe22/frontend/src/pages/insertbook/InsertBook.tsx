@@ -18,7 +18,6 @@ export default function InsertBook() {
 
   //the code below is for checking if user is admin or not
   const colAdm = collection(db, "admin");
-
   const [admins, setAdmins] = React.useState<Admin[] | undefined>();
   const [uid, setUid] = React.useState<string>("");
   // const [username, setUsername] = React.useState<string | null>();
@@ -34,8 +33,9 @@ export default function InsertBook() {
   useEffect(() => {
     getUser();
     fetchAdmin();
+    checkAdmin();
     // fetchImage();
-  }, []);
+  }, [uid]);
 
   //fetches admin uids from db
   async function fetchAdmin() {
