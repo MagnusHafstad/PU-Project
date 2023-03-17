@@ -311,6 +311,8 @@ export default function BookPage() {
     getUser();
     fetchAdmin();
     fetchProf();
+    checkAdmin();
+    checkProf();
     checkRating();
     checkProfRating();
     getUserRating();
@@ -378,7 +380,7 @@ export default function BookPage() {
             <></>
           )}
         </div>
-        {isAdmin ? <EditButton /> : <></>}
+          {/* {isAdmin ? <EditButton /> : <></>} */}
       </div>
     </>
   );
