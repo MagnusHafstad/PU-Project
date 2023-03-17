@@ -31,8 +31,8 @@ export default function ProfilePage() {
     });
   }
 
-   //checks if user is admin
-   function checkAdmin() {
+  //checks if user is admin
+  function checkAdmin() {
     if (admins?.find((a) => a.uid == uid)) {
       setIsAdmin(true);
     } else {
