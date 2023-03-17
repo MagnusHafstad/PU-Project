@@ -5,6 +5,8 @@ import React from "react";
 import { useEffect } from "react";
 import AdminButton from "../../components/AdminButton";
 import admButton from "../../components/AdminButton";
+import BookList from "../../components/BookList";
+import Favourites from "../../components/Favourites";
 import SignOut from "../../components/SignOut";
 import { db } from "../../firebase-config";
 import { Admin } from "../../types";
@@ -58,6 +60,7 @@ export default function ProfilePage() {
       <h1>Profile</h1>
       <p>Username: {username}</p>
       <p>User id:{uid}</p>
+      <Favourites />
       <SignOut />
       {checkAdmin() ? <AdminButton /> : ""}
     </div>
