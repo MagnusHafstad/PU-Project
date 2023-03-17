@@ -381,3 +381,29 @@ export default function BookPage() {
     </>
   );
 }
+
+//  {
+//    uid ? (
+//      !checkProf ? (
+//        hasRated ? (
+//          <div> Your rating: {userRating}</div>
+//        ) : (
+//          <div>
+//            <label htmlFor="Rating">Rate the book</label>
+//            <input id="Rating" name="Rating" type="number" min="0" max="10" step="1" ref={ratingInputRef} />
+//            <button onClick={handleAddRating}>Add Rating</button>
+//          </div>
+//        )
+//      ) : profHasRated ? (
+//        <div> Your professional rating: {profRating}</div>
+//      ) : (
+//        <div>
+//          <label htmlFor="Rating">Rate the book</label>
+//          <input id="ProfRating" name="Rating" type="number" min="0" max="10" step="1" ref={profRatingInputRef} />
+//          <button onClick={handleAddProfRating}>Add professional rating</button>
+//        </div>
+//      )
+//    ) : (
+//      <></>
+//    );
+//  }
