@@ -4,6 +4,7 @@ import SingleBook from "./SingleBook";
 import { collection, doc, DocumentData, getDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { useParams } from "react-router-dom";
+import FavouriteBook from "./FavouriteBook";
 
 export default function Favourites(props: { uid: string }) {
   const [favBooks, setFavBooks] = React.useState<Book[] | undefined>();
@@ -56,38 +57,6 @@ export default function Favourites(props: { uid: string }) {
     setFavBooks(tempBooks);
   }
 
-  // async function getFavBooks() {
-  //   const tempBooks: Book[] = [];
-  //   favourites?.forEach((fav) => {
-  //     const bookRef = doc(db, "books", fav);
-  //     getDoc(bookRef)
-  //       .then((docSnapshot) => {
-  //         if (docSnapshot.exists()) {
-  //           const bookData = docSnapshot.data();
-  //           // console.log(fav);
-  //           const book: Book = {
-  //             id: fav,
-  //             author: bookData.author,
-  //             avgProfRating: bookData.avgProfRating,
-  //             avgUserRating: bookData.avgUserRating,
-  //             description: bookData.description,
-  //             numProfRatings: bookData.numProfRatings,
-  //             photo: bookData.photo,
-  //             title: bookData.title,
-  //             numUserRatings: bookData.numUserRatings,
-  //           };
-  //           tempBooks.push(book);
-  //         } else {
-  //           console.log("No such document!");
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.log("Error getting document:", error);
-  //       });
-  //     setFavBooks(tempBooks);
-  //   });
-  // }
-
   useEffect(() => {
     console.log("hei");
     if (props.uid) {
@@ -110,9 +79,6 @@ export default function Favourites(props: { uid: string }) {
           console.log(f);
           return <SingleBook key={i} book={f} />;
         })
-        // favourites.map((fav, index) => {
-        //   return <span key={index}>{fav}</span>;
-        // })
       )}
     </>
   );
