@@ -102,7 +102,7 @@ export default function Favourites(props: { uid: string }) {
 
   return (
     <>
-      {console.log(favBooks)}
+      <div>Favourite books:</div>
       {favBooks == undefined ? (
         <div>Laster favoritter...</div>
       ) : (
@@ -114,7 +114,6 @@ export default function Favourites(props: { uid: string }) {
         //   return <span key={index}>{fav}</span>;
         // })
       )}
-      <div>hei</div>
     </>
   );
 }
