@@ -316,7 +316,6 @@ export default function BookPage() {
     const tempFavourites: string[] = [];
     const snapshot = await getDocs(favRef);
     snapshot.docs.map((doc) => {
-      console.log(doc.get("bookId"));
       tempFavourites.push(doc.get("bookID"));
     });
     console.log(tempFavourites);
@@ -325,7 +324,6 @@ export default function BookPage() {
 
   async function checkFavourites() {
     if (favourites?.find((fav) => fav == bookID)) {
-      console.log("favvvv");
       setHasFavourited(true);
     } else {
       console.log(favourites);
