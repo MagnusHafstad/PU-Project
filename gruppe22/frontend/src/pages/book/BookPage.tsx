@@ -1,4 +1,4 @@
-import { collection, getDocs, runTransaction, doc, where, query } from "firebase/firestore";
+import { collection, getDocs, runTransaction, doc, where, query, addDoc, deleteDoc } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import React, { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
@@ -6,7 +6,7 @@ import { db } from "../../firebase-config";
 import { Book, Prof } from "../../types";
 import { storage } from "../../firebase-config";
 import { Admin } from "../../types";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import EditButton from "../../components/EditButton";
 import "./BookPage.css";
 import { hasFormSubmit } from "@testing-library/user-event/dist/utils";
@@ -311,13 +311,13 @@ export default function BookPage() {
   const [hasFavourited, setHasFavourited] = React.useState<boolean>(false);
 
   async function getFavourites(userId: string) {
-    console.log("inside getfavs");
     //has to wait for fetching user before using uid to fetch users favourites
-    const favRef = collection(db, "users/" + userId.toString() + "/favourites");
+    const favRef = collection(db, "users/" + userId + "/favourites");
     const tempFavourites: string[] = [];
     const snapshot = await getDocs(favRef);
     snapshot.docs.map((doc) => {
-      tempFavourites.push(doc.get("bookId"));
+      console.log(doc.get("bookId"));
+      tempFavourites.push(doc.get("bookID"));
     });
     console.log(tempFavourites);
     setFavourites(tempFavourites);
@@ -334,6 +334,30 @@ export default function BookPage() {
   }
   //code above is used for fetching favourites of user and then checking if the book on the page is in the favourites
 
+  //function that adds book to favorite in firebase
+  async function addFavorite() {
+    try {
+      const favRef = collection(db, `users/${uid}/favourites`);
+      await addDoc(favRef, { bookID });
+      setHasFavourited(true);
+      console.log("Book added to favorites!");
+    } catch (error) {
+      console.error("Error adding book to favorites:", error);
+    }
+    console.log("favourites:" + hasFavourited);
+  }
+
+  //function that removes book from favorite in firebase
+  async function removeFavourite() {
+    const favouritesRef = collection(db, `users/${uid}/favourites`);
+    const q = query(favouritesRef, where("bookID", "==", bookID));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      deleteDoc(doc.ref);
+    });
+    setHasFavourited(false);
+  }
+
   useEffect(() => {
     console.log("hei");
     fetchBook();
@@ -346,6 +370,7 @@ export default function BookPage() {
     checkProfRating();
     getUserRating();
     getProfRating();
+    console.log(hasFavourited);
   }, [hasRated, profHasRated, userRating, hasFavourited]);
 
   //useeffect that runs checkfavourites when 'favourites is updated'
@@ -385,26 +410,27 @@ export default function BookPage() {
               hasRated ? (
                 <>
                   <div> Your rating: {userRating}</div>
-                  <button>Remove from favourites</button>
+                  <button onClick={removeFavourite}>Remove from favourites</button>
                 </>
               ) : (
                 <div>
                   <label htmlFor="Rating">Rate the book</label>
                   <input id="Rating" name="Rating" type="number" min="0" max="10" step="1" ref={ratingInputRef} />
-                  <button onClick={handleAddRating}>Add Rating</button> <button>Remove from favourites</button>
+                  <button onClick={handleAddRating}>Add Rating</button>{" "}
+                  <button onClick={removeFavourite}>Remove from favourites</button>
                 </div>
               )
             ) : hasRated ? (
               <>
                 <div> Your rating: {userRating}</div>
-                <button>Add to favourites</button>
+                <button onClick={addFavorite}>Add to favourites</button>
               </>
             ) : (
               <div>
                 <label htmlFor="Rating">Rate the book</label>
                 <input id="Rating" name="Rating" type="number" min="0" max="10" step="1" ref={ratingInputRef} />
                 <button onClick={handleAddRating}>Add Rating</button>
-                <button>Add to favourites</button>
+                <button onClick={addFavorite}>Add to favourites</button>
               </div>
             )
           ) : (

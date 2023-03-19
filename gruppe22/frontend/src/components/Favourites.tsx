@@ -17,7 +17,7 @@ export default function Favourites(props: { uid: string }) {
     const tempFavourites: string[] = [];
     const snapshot = await getDocs(favRef);
     snapshot.docs.map((doc) => {
-      tempFavourites.push(doc.get("bookId"));
+      tempFavourites.push(doc.get("bookID"));
     });
     setFavourites(tempFavourites);
   }
