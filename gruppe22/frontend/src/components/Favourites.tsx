@@ -4,7 +4,7 @@ import SingleBook from "./SingleBook";
 import { collection, doc, DocumentData, getDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { useParams } from "react-router-dom";
-import FavouriteBook from "./FavouriteBook";
+// import FavouriteBook from "./FavouriteBook";
 
 export default function Favourites(props: { uid: string }) {
   const [favBooks, setFavBooks] = React.useState<Book[] | undefined>();

@@ -21,6 +21,8 @@ import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import EditButton from "../../components/EditButton";
 import "./BookPage.css";
 import { hasFormSubmit } from "@testing-library/user-event/dist/utils";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import { Button } from "@mui/material";
 
 export default function BookPage() {
   const { bookID } = useParams();
@@ -421,27 +423,35 @@ export default function BookPage() {
               hasRated ? (
                 <>
                   <div> Your rating: {userRating}</div>
-                  <button onClick={removeFavourite}>Remove from favourites</button>
+                  <Button onClick={removeFavourite} variant="contained" color="error">
+                    Remove from favourites
+                  </Button>
                 </>
               ) : (
                 <div>
                   <label htmlFor="Rating">Rate the book</label>
                   <input id="Rating" name="Rating" type="number" min="0" max="10" step="1" ref={ratingInputRef} />
                   <button onClick={handleAddRating}>Add Rating</button>{" "}
-                  <button onClick={removeFavourite}>Remove from favourites</button>
+                  <Button onClick={removeFavourite} variant="contained" color="error">
+                    Remove from favourites
+                  </Button>
                 </div>
               )
             ) : hasRated ? (
               <>
                 <div> Your rating: {userRating}</div>
-                <button onClick={addFavorite}>Add to favourites</button>
+                <Button onClick={addFavorite} variant="contained">
+                  Add to favourites
+                </Button>
               </>
             ) : (
               <div>
                 <label htmlFor="Rating">Rate the book</label>
                 <input id="Rating" name="Rating" type="number" min="0" max="10" step="1" ref={ratingInputRef} />
                 <button onClick={handleAddRating}>Add Rating</button>
-                <button onClick={addFavorite}>Add to favourites</button>
+                <Button onClick={addFavorite} variant="contained">
+                  Add to favourites
+                </Button>
               </div>
             )
           ) : (
