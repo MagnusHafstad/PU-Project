@@ -9,7 +9,7 @@ import BookList from "../../components/BookList";
 import Favourites from "../../components/Favourites";
 import SignOut from "../../components/SignOut";
 import { db } from "../../firebase-config";
-import { Admin } from "../../types";
+import { Admin, Book } from "../../types";
 import "./ProfilePage.css";
 
 export default function ProfilePage() {
@@ -20,7 +20,6 @@ export default function ProfilePage() {
   const [username, setUsername] = React.useState<string | null>();
 
   async function fetchAdmin() {
-    console.log(uid);
     getDocs(colRef).then((snapshot) => {
       setAdmins(
         snapshot.docs.map((doc) => {
@@ -60,7 +59,8 @@ export default function ProfilePage() {
       <h1>Profile</h1>
       <p>Username: {username}</p>
       <p>User id:{uid}</p>
-      <Favourites />
+      {/* {uid && <Favourites uid={uid} />} */}
+      {uid && <Favourites uid={uid} />}
       <SignOut />
       {checkAdmin() ? <AdminButton /> : ""}
     </div>
