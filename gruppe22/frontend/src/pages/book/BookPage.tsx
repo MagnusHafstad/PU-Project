@@ -1,4 +1,15 @@
-import { collection, getDocs, runTransaction, doc, where, query, addDoc, deleteDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  runTransaction,
+  doc,
+  where,
+  query,
+  addDoc,
+  deleteDoc,
+  setDoc,
+  getDoc,
+} from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import React, { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
@@ -333,7 +344,12 @@ export default function BookPage() {
   //function that adds book to favorite in firebase
   async function addFavorite() {
     try {
-      const favRef = collection(db, `users/${uid}/favourites`);
+      const userRef = doc(db, `users/${uid}`);
+      const favRef = collection(userRef, "favourites");
+
+      // Create the 'favourites' subcollection if it doesn't exist
+      await setDoc(userRef, {}, { merge: true });
+
       await addDoc(favRef, { bookID });
       setHasFavourited(true);
       console.log("Book added to favorites!");
