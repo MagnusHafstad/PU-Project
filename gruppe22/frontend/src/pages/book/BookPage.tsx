@@ -326,11 +326,9 @@ export default function BookPage() {
     if (favourites?.find((fav) => fav == bookID)) {
       setHasFavourited(true);
     } else {
-      console.log(favourites);
       setHasFavourited(false);
     }
   }
-  //code above is used for fetching favourites of user and then checking if the book on the page is in the favourites
 
   //function that adds book to favorite in firebase
   async function addFavorite() {
@@ -342,7 +340,6 @@ export default function BookPage() {
     } catch (error) {
       console.error("Error adding book to favorites:", error);
     }
-    console.log("favourites:" + hasFavourited);
   }
 
   //function that removes book from favorite in firebase
