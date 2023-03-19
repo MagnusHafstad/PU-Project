@@ -25,8 +25,10 @@ export default function InsertBook() {
 
   const genres = [
     { label: "Barnebok", value: "barnebok" },
+    { label: "Ungdom", value: "ungdom" },
     { label: "Sakprosa", value: "sakprosa" },
     { label: "Fantasy", value: "fantasy" },
+    { label: "Science fiction", value: "science fiction" },
   ];
 
   const [selected, setSelected] = useState([]);
@@ -137,13 +139,11 @@ export default function InsertBook() {
     // const genresRef = collection(newBookRef, "genres");
 
     // genres should perhaps be a separate thing on firebase like users, but for now this solution is sufficent
-    let fieldName;
-    genres.forEach(
-      (element: any) => (fieldName = element.value.toString()),
+    genres.forEach((element: any) => {
       addDoc(genresCollection, {
-        test: "!",
-      })
-    );
+        genre: element.value.toString(),
+      });
+    });
   }
 
   return (
