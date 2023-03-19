@@ -9,6 +9,7 @@ import { Admin } from "../../types";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import EditButton from "../../components/EditButton";
 import "./BookPage.css";
+import { hasFormSubmit } from "@testing-library/user-event/dist/utils";
 
 export default function BookPage() {
   const { bookID } = useParams();
@@ -245,12 +246,13 @@ export default function BookPage() {
   }
 
   //find user and setsd uid to user.uid
-  function getUser() {
+  async function getUser() {
     const auth = getAuth();
     return onAuthStateChanged(auth, (user) => {
       if (user != null) {
         // setUsername(user.email);
         setUid(user.uid);
+        getFavourites(user.uid);
       }
     });
   }
@@ -304,25 +306,54 @@ export default function BookPage() {
     });
   }
 
+  //code below is used for fetching favourites of user and then checking if the book on the page is in the favourites
+  const [favourites, setFavourites] = React.useState<string[] | undefined>();
+  const [hasFavourited, setHasFavourited] = React.useState<boolean>(false);
+
+  async function getFavourites(userId: string) {
+    console.log("inside getfavs");
+    //has to wait for fetching user before using uid to fetch users favourites
+    const favRef = collection(db, "users/" + userId.toString() + "/favourites");
+    const tempFavourites: string[] = [];
+    const snapshot = await getDocs(favRef);
+    snapshot.docs.map((doc) => {
+      tempFavourites.push(doc.get("bookId"));
+    });
+    console.log(tempFavourites);
+    setFavourites(tempFavourites);
+  }
+
+  async function checkFavourites() {
+    if (favourites?.find((fav) => fav == bookID)) {
+      console.log("favvvv");
+      setHasFavourited(true);
+    } else {
+      console.log(favourites);
+      setHasFavourited(false);
+    }
+  }
+  //code above is used for fetching favourites of user and then checking if the book on the page is in the favourites
+
   useEffect(() => {
+    console.log("hei");
     fetchBook();
     getUser();
     fetchAdmin();
     fetchProf();
+    // getFavourites();
+    // checkFavourites();
     checkRating();
     checkProfRating();
     getUserRating();
     getProfRating();
-  }, [hasRated, profHasRated, userRating]);
+  }, [hasRated, profHasRated, userRating, hasFavourited]);
 
-  // fetchBook();
-  // getUser();
-  // fetchAdmin();
-  // fetchProf();
-  // checkRating();
-  // checkProfRating();
-  // getUserRating();
-  // getProfRating();
+  //useeffect that runs checkfavourites when 'favourites is updated'
+  useEffect(() => {
+    console.log("useeffect2");
+    // getFavourites(uid);
+    checkFavourites();
+  }, [favourites]);
 
   return (
     <>
@@ -350,16 +381,42 @@ export default function BookPage() {
           <span> Avgerage professional rating: {book?.avgProfRating?.toFixed(1) || "No ratings yet"}</span>
           <br />
           {uid && !checkProf() ? (
-            hasRated ? (
-              <div> Your rating: {userRating}</div>
+            hasFavourited ? (
+              hasRated ? (
+                <>
+                  <div> Your rating: {userRating}</div>
+                  <button>Remove from favourites</button>
+                </>
+              ) : (
+                <div>
+                  <label htmlFor="Rating">Rate the book</label>
+                  <input id="Rating" name="Rating" type="number" min="0" max="10" step="1" ref={ratingInputRef} />
+                  <button onClick={handleAddRating}>Add Rating</button> <button>Remove from favourites</button>
+                </div>
+              )
+            ) : hasRated ? (
+              <>
+                <div> Your rating: {userRating}</div>
+                <button>Add to favourites</button>
+              </>
             ) : (
               <div>
                 <label htmlFor="Rating">Rate the book</label>
                 <input id="Rating" name="Rating" type="number" min="0" max="10" step="1" ref={ratingInputRef} />
                 <button onClick={handleAddRating}>Add Rating</button>
+                <button>Add to favourites</button>
               </div>
             )
           ) : (
+            // hasRated ? (
+            //   <div> Your rating: {userRating}</div>
+            // ) : (
+            //   <div>
+            //     <label htmlFor="Rating">Rate the book</label>
+            //     <input id="Rating" name="Rating" type="number" min="0" max="10" step="1" ref={ratingInputRef} />
+            //     <button onClick={handleAddRating}>Add Rating</button>
+            //   </div>
+            // )
             <></>
           )}
           {uid && checkProf() ? (
