@@ -62,6 +62,7 @@ export default function Favourites(props: { uid: string }) {
     if (props.uid) {
       getUserFavourites();
     }
+    console.log(favBooks);
   }, [props.uid]);
 
   useEffect(() => {
@@ -72,12 +73,18 @@ export default function Favourites(props: { uid: string }) {
   return (
     <>
       <div>Favourite books:</div>
-      {favBooks == undefined ? (
-        <div>Laster favoritter...</div>
+      {favBooks == undefined || favBooks.length == 0 ? (
+        <>
+          <div>You have not favorited any books yet</div>
+        </>
       ) : (
         favBooks.map((f: Book, i) => {
           console.log(f);
-          return <SingleBook key={i} book={f} />;
+          return (
+            <>
+              <SingleBook key={i} book={f} />
+            </>
+          );
         })
       )}
     </>
