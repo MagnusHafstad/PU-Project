@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Book } from "../types";
 import SingleBook from "./SingleBook";
-import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { collection, doc, DocumentData, getDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { useParams } from "react-router-dom";
 
@@ -20,16 +20,16 @@ export default function Favourites(props: { uid: string }) {
     });
     setFavourites(tempFavourites);
   }
-
   async function getFavBooks() {
     const tempBooks: Book[] = [];
+    const bookData: DocumentData[] = []; // initialize to empty array
+
     favourites?.forEach((fav) => {
       const bookRef = doc(db, "books", fav);
-      getDoc(bookRef)
+      const promise = getDoc(bookRef)
         .then((docSnapshot) => {
           if (docSnapshot.exists()) {
             const bookData = docSnapshot.data();
-            // console.log(fav);
             const book: Book = {
               id: fav,
               author: bookData.author,
@@ -49,9 +49,44 @@ export default function Favourites(props: { uid: string }) {
         .catch((error) => {
           console.log("Error getting document:", error);
         });
-      setFavBooks(tempBooks);
+      bookData.push(promise); // add each promise to the array
     });
+
+    await Promise.all(bookData); // wait for all promises to resolve
+    setFavBooks(tempBooks);
   }
+
+  // async function getFavBooks() {
+  //   const tempBooks: Book[] = [];
+  //   favourites?.forEach((fav) => {
+  //     const bookRef = doc(db, "books", fav);
+  //     getDoc(bookRef)
+  //       .then((docSnapshot) => {
+  //         if (docSnapshot.exists()) {
+  //           const bookData = docSnapshot.data();
+  //           // console.log(fav);
+  //           const book: Book = {
+  //             id: fav,
+  //             author: bookData.author,
+  //             avgProfRating: bookData.avgProfRating,
+  //             avgUserRating: bookData.avgUserRating,
+  //             description: bookData.description,
+  //             numProfRatings: bookData.numProfRatings,
+  //             photo: bookData.photo,
+  //             title: bookData.title,
+  //             numUserRatings: bookData.numUserRatings,
+  //           };
+  //           tempBooks.push(book);
+  //         } else {
+  //           console.log("No such document!");
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.log("Error getting document:", error);
+  //       });
+  //     setFavBooks(tempBooks);
+  //   });
+  // }
 
   useEffect(() => {
     console.log("hei");
@@ -73,7 +108,7 @@ export default function Favourites(props: { uid: string }) {
       ) : (
         favBooks.map((f: Book, i) => {
           console.log(f);
-          return <SingleBook key={i} book={f}></SingleBook>;
+          return <SingleBook key={i} book={f} />;
         })
         // favourites.map((fav, index) => {
         //   return <span key={index}>{fav}</span>;
