@@ -104,6 +104,7 @@
   box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 1);
   margin-left: 100px;
   margin-right: 100px;
+  margin-bottom: 30px;
 }
 
 .ChartBookList {
@@ -124,6 +125,7 @@
   padding: 2rem;
   box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 1);
   margin-right: 100px;
+  margin-bottom: 30px;
 }
 
 .ListTitle {
@@ -435,4 +437,11 @@
   fill: #333;
   transition: all 0.3s ease;
   display: none;
+}
+
+.FavTitle{
+    font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+      color: #ffffff;
 }

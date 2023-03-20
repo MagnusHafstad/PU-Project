@@ -4,6 +4,7 @@ import SingleBook from "./SingleBook";
 import { collection, doc, DocumentData, getDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { useParams } from "react-router-dom";
+import CompactSingleBook from "./CompactSingleBook";
 // import FavouriteBook from "./FavouriteBook";
 
 export default function Favourites(props: { uid: string }) {
@@ -72,21 +73,23 @@ export default function Favourites(props: { uid: string }) {
 
   return (
     <>
-      <div>Favourite books:</div>
-      {favBooks == undefined || favBooks.length == 0 ? (
-        <>
-          <div>You have not favorited any books yet</div>
-        </>
-      ) : (
-        favBooks.map((f: Book, i) => {
-          console.log(f);
-          return (
-            <>
-              <SingleBook key={i} book={f} />
-            </>
-          );
-        })
-      )}
+      <div className="BookList">
+        <h1 className="FavTitle">Your favorite books:</h1>
+        {favBooks == undefined || favBooks.length == 0 ? (
+          <>
+            <div>You have not favorited any books yet</div>
+          </>
+        ) : (
+          favBooks.map((f: Book, i) => {
+            console.log(f);
+            return (
+              <>
+                <CompactSingleBook key={i} book={f} />
+              </>
+            );
+          })
+        )}
+      </div>
     </>
   );
 }

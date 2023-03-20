@@ -1,11 +1,10 @@
 .ProfilePage {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
     width: 100%;
     height: 100%;
-    padding-bottom: 200px;
     background-color: #fcf7f8;
 }
 
@@ -17,7 +16,7 @@
     float: left;
 }
 .FavouriteList {
-    margin-right: 4vw;
+    /* margin-right: 4vw; */
     float: right;
 }
 

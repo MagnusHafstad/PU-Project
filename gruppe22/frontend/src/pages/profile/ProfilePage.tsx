@@ -57,7 +57,7 @@ export default function ProfilePage() {
   }, [uid]);
 
   return (
-    <div>
+    <div className="ProfilePage">
       <div className="ProfileInfo">
         <h1>Profile</h1>
         <p>Username: {username}</p>
@@ -67,7 +67,6 @@ export default function ProfilePage() {
         </div>
         {checkAdmin() ? <AdminButton /> : ""}
       </div>
-      {/* {uid && <Favourites uid={uid} />} */}
       <div className="FavouriteList">{uid && <Favourites uid={uid} />}</div>
     </div>
   );
