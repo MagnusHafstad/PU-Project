@@ -19,8 +19,8 @@
   border-radius: 5px;
   margin-top: 10px;
   margin-bottom: 10px;
-  max-width: 300px;
-  min-width: 300px;
+  max-width: 390px;
+  min-width: 390px;
   background-color: #90c2e7;
   border: 5px;
   outline-style: solid;
@@ -103,8 +103,7 @@
   flex-direction: column;
   align-items: center;
   background-color: #4e8098;
-  padding-left: 50px;
-  padding-right: 50px;
+
   padding-bottom: 30px;
   padding-top: 10px;
   border-radius: 10px;
