@@ -24,8 +24,9 @@
     width: auto;
 }
 .ProfileInfo {
-    margin-left: 6vw;
+    margin-left: 10vw;
     width: 40vw;
+    height: 42vh;
     float: left;
     background-color: #4e8098;
     border-radius: 10px;
@@ -41,6 +42,7 @@
 }
 
 .Buttons{
+    margin-top: 20vh;
     padding-bottom: 5px;
 }
 .profileHeader{

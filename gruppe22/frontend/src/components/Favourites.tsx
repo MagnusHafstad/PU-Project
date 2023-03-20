@@ -5,11 +5,13 @@ import { collection, doc, DocumentData, getDoc, getDocs, query, where } from "fi
 import { db } from "../firebase-config";
 import { useParams } from "react-router-dom";
 import CompactSingleBook from "./CompactSingleBook";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import { Button } from "@mui/material";
 // import FavouriteBook from "./FavouriteBook";
 
 export default function Favourites(props: { uid: string }) {
   const [favBooks, setFavBooks] = React.useState<Book[] | undefined>();
-
+  const [showAll, setShowAll] = React.useState<boolean>();
   const [favourites, setFavourites] = React.useState<string[] | undefined>();
   // const bookRef = collection(db, "books");
 
@@ -58,6 +60,14 @@ export default function Favourites(props: { uid: string }) {
     setFavBooks(tempBooks);
   }
 
+  async function loadAllFavs() {
+    setShowAll(true);
+  }
+
+  async function loadOnlyOne() {
+    setShowAll(false);
+  }
+
   useEffect(() => {
     console.log("hei");
     if (props.uid) {
@@ -73,21 +83,32 @@ export default function Favourites(props: { uid: string }) {
 
   return (
     <>
-      <div className="BookList">
+      <div className="FavBookList">
         <h1 className="FavTitle">Your favorite books:</h1>
         {favBooks == undefined || favBooks.length == 0 ? (
           <>
             <div>You have not favorited any books yet</div>
           </>
-        ) : (
+        ) : showAll ? (
           favBooks.map((f: Book, i) => {
-            console.log(f);
-            return (
-              <>
-                <CompactSingleBook key={i} book={f} />
-              </>
-            );
+            return <CompactSingleBook key={i} book={f} />;
           })
+        ) : (
+          <>
+            <CompactSingleBook book={favBooks[0]}></CompactSingleBook>
+            {/* <Button variant="contained" onClick={loadAllFavs}>
+              Show all favourites...
+            </Button> */}
+          </>
+        )}
+        {showAll ? (
+          <Button variant="contained" onClick={loadOnlyOne}>
+            Hide Favourites
+          </Button>
+        ) : (
+          <Button variant="contained" onClick={loadAllFavs}>
+            Show all favourites...
+          </Button>
         )}
       </div>
     </>
