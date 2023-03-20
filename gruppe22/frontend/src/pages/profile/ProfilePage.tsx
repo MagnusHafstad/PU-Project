@@ -61,7 +61,7 @@ export default function ProfilePage() {
       <div className="ProfileInfo">
         <h1>Profile</h1>
         <p>
-          <span className="UserInfo">Username:</span> {username}
+          <span className="UserInfo">Email:</span> {username}
         </p>
         <div className="Buttons">
           {" "}
