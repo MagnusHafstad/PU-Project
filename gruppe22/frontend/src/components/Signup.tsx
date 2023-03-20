@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebase-config";
 import "./Styles.css";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 
 const Signup: React.FC = () => {
   const navigate = useNavigate();
@@ -18,6 +18,8 @@ const Signup: React.FC = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       // Signed in
       const user = userCredential.user;
+      const userRef = doc(db, "users", user.uid);
+      await setDoc(userRef, {});
       console.log(user);
       navigate("/");
       // ...
