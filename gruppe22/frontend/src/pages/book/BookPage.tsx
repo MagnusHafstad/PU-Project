@@ -480,7 +480,6 @@ export default function BookPage() {
             <></>
           )}
         </div>
-        {checkAdmin() ? <EditButton /> : <></>}
       </div>
     </>
   );
