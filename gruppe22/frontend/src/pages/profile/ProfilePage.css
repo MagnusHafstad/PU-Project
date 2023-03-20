@@ -7,5 +7,20 @@
     height: 100%;
     padding-bottom: 200px;
     background-color: #fcf7f8;
-    
+}
+
+.InfoAndFavourites{
+    width: auto;
+}
+.ProfileInfo {
+    margin-left: 4vw;
+    float: left;
+}
+.FavouriteList {
+    margin-right: 4vw;
+    float: right;
+}
+
+.Buttons{
+    padding-bottom: 5px;
 }

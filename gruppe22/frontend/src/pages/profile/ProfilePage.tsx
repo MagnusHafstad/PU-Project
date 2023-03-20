@@ -57,15 +57,18 @@ export default function ProfilePage() {
   }, [uid]);
 
   return (
-    <div className="ProfilePage">
-      <h1>Profile</h1>
-      <p>Username: {username}</p>
-      <p>User id:{uid}</p>
+    <div>
+      <div className="ProfileInfo">
+        <h1>Profile</h1>
+        <p>Username: {username}</p>
+        <div className="Buttons">
+          {" "}
+          <SignOut />
+        </div>
+        {checkAdmin() ? <AdminButton /> : ""}
+      </div>
       {/* {uid && <Favourites uid={uid} />} */}
-      {uid && <Favourites uid={uid} />}
-      <SignOut />
-      <br />
-      {checkAdmin() ? <AdminButton /> : ""}
+      <div className="FavouriteList">{uid && <Favourites uid={uid} />}</div>
     </div>
   );
 }
