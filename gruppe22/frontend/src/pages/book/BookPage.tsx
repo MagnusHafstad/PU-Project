@@ -136,6 +136,7 @@ export default function BookPage() {
         // adding rating to the collection
         const newDoc = doc(ratingRef);
         transaction.set(newDoc, { rating: rating, userID: uid });
+        setUserRating(rating);
       });
     });
   }
@@ -174,6 +175,7 @@ export default function BookPage() {
         // adding rating to the collection
         const newDoc = doc(ratingRef);
         transaction.set(newDoc, { rating: rating, userID: uid });
+        setProfRating(rating);
       });
     });
   }
@@ -194,7 +196,7 @@ export default function BookPage() {
     //må sjekke innlogging
     if (rating >= 0 && rating <= 10) {
       addProfRating(rating);
-      checkRating();
+      checkProfRating();
     } else {
       //Feilhåntering
     }
@@ -210,6 +212,8 @@ export default function BookPage() {
   const [profHasRated, setProfHasRated] = React.useState<boolean>(false);
   const [userRating, setUserRating] = React.useState<number>();
   const [profRating, setProfRating] = React.useState<number>();
+  const [isProf, setIsProf] = React.useState<boolean>(false);
+  const [isAdmin, setIsAdmin] = React.useState<boolean>(false);
   // const [username, setUsername] = React.useState<string | null>();
 
   //fetches admin uids from db
@@ -294,16 +298,15 @@ export default function BookPage() {
   //if not, the user should be able to add a rating
 
   //checks if user has rated a book
-  async function checkRating() {
+  function checkRating() {
     const ratingRef = collection(db, "books/" + bookID + "/userRatings");
     const q = query(ratingRef, where("userID", "==", uid));
     getDocs(q).then((snapshot) => {
       if (snapshot.docs.length > 0) {
         setHasRated(true);
-      } else {
-        setHasRated(false);
       }
     });
+    setHasRated(false);
   }
 
   function checkProfRating() {
@@ -313,10 +316,9 @@ export default function BookPage() {
     getDocs(pq).then((snapshot) => {
       if (snapshot.docs.length > 0) {
         setProfHasRated(true);
-      } else {
-        setProfHasRated(false);
       }
     });
+    setProfHasRated(false);
   }
 
   //code below is used for fetching favourites of user and then checking if the book on the page is in the favourites
@@ -370,7 +372,6 @@ export default function BookPage() {
     });
     setHasFavourited(false);
   }
-
   useEffect(() => {
     console.log("hei");
     fetchBook();
@@ -384,7 +385,7 @@ export default function BookPage() {
     getUserRating();
     getProfRating();
     console.log(hasFavourited);
-  }, [hasRated, profHasRated, userRating, hasFavourited]);
+  }, [hasRated, profHasRated, userRating]);
 
   //useeffect that runs checkfavourites when 'favourites is updated'
   useEffect(() => {
@@ -455,30 +456,84 @@ export default function BookPage() {
               </div>
             )
           ) : (
-            // hasRated ? (
-            //   <div> Your rating: {userRating}</div>
-            // ) : (
-            //   <div>
-            //     <label htmlFor="Rating">Rate the book</label>
-            //     <input id="Rating" name="Rating" type="number" min="0" max="10" step="1" ref={ratingInputRef} />
-            //     <button onClick={handleAddRating}>Add Rating</button>
-            //   </div>
-            // )
             <></>
           )}
           {uid && checkProf() ? (
-            profHasRated ? (
-              <div> Your professional rating: {profRating}</div>
+            hasFavourited ? (
+              profHasRated ? (
+                <>
+                  <div> Your rating: {profRating}</div>
+                  <Button onClick={removeFavourite} variant="contained" color="error">
+                    Remove from favourites
+                  </Button>
+                </>
+              ) : (
+                <div>
+                  <label htmlFor="Rating">Rate the book</label>
+                  <input id="Rating" name="Rating" type="number" min="0" max="10" step="1" ref={profRatingInputRef} />
+                  <button onClick={handleAddProfRating}>Add Rating</button>{" "}
+                  <Button onClick={removeFavourite} variant="contained" color="error">
+                    Remove from favourites
+                  </Button>
+                </div>
+              )
+            ) : profHasRated ? (
+              <>
+                <div> Your rating: {profRating}</div>
+                <Button onClick={addFavorite} variant="contained">
+                  Add to favourites
+                </Button>
+              </>
             ) : (
               <div>
                 <label htmlFor="Rating">Rate the book</label>
                 <input id="ProfRating" name="Rating" type="number" min="0" max="10" step="1" ref={profRatingInputRef} />
-                <button onClick={handleAddProfRating}>Add professional rating</button>
+                <button onClick={handleAddProfRating}>Add Rating</button>
+                <Button onClick={addFavorite} variant="contained">
+                  Add to favourites
+                </Button>
               </div>
             )
           ) : (
             <></>
           )}
+
+          {/* {uid && checkProf()
+           ? (
+            hasFavourited ? (profHasRated ? (
+              <>
+              <div> Your professional rating: {profRating}</div>
+              <Button onClick={removeFavourite} variant="contained" color="error">
+              Remove from favourites
+            </Button></>
+            ) : (
+              <div>
+                <label htmlFor="Rating">Rate the book</label>
+                <input id="ProfRating" name="Rating" type="number" min="0" max="10" step="1" ref={profRatingInputRef} />
+                <button onClick={handleAddProfRating}>Add professional rating</button>
+                <Button onClick={removeFavourite} variant="contained" color="error">
+                    Remove from favourites
+                  </Button>
+              </div>
+            )) : (profHasRated ? (
+              <><div> Your professional rating: {profRating}</div>
+              <Button onClick={addFavorite} variant="contained">
+              Add to favourites
+            </Button></>
+            ) : (
+              <div>
+                <label htmlFor="Rating">Rate the book</label>
+                <input id="ProfRating" name="Rating" type="number" min="0" max="10" step="1" ref={profRatingInputRef} />
+                <button onClick={handleAddProfRating}>Add professional rating</button>
+                <Button onClick={addFavorite} variant="contained">
+                  Add to favourites
+                </Button>
+              </div>
+            ))
+            
+          ) : (
+            <></>
+          )} */}
         </div>
       </div>
     </>
