@@ -445,3 +445,8 @@
       margin-bottom: 2rem;
       color: #ffffff;
 }
+
+.CompactSingleBook:hover {
+    transition: all 500ms;
+      background-color: lightgray;
+}
