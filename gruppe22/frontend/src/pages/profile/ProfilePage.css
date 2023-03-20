@@ -8,6 +8,12 @@
     background-color: #fcf7f8;
 }
 
+.UserInfo{
+        font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            color: #000000;
+}
 .InfoAndFavourites{
     width: auto;
 }

@@ -60,7 +60,9 @@ export default function ProfilePage() {
     <div className="ProfilePage">
       <div className="ProfileInfo">
         <h1>Profile</h1>
-        <p>Username: {username}</p>
+        <p>
+          <span className="UserInfo">Username:</span> {username}
+        </p>
         <div className="Buttons">
           {" "}
           <SignOut />
