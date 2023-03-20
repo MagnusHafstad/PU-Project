@@ -302,7 +302,6 @@
 }
 
 .Search {
-  display: flex;
   align-items: center;
   flex-direction: column;
   margin-bottom: 1rem;
@@ -315,8 +314,6 @@
   background-color: #4e8098;
   padding-left: 50px;
   padding-right: 50px;
-  padding-bottom: 30px;
-  padding-top: 10px;
   border-radius: 10px;
   outline-style: solid;
   outline-width: 3px;
@@ -327,6 +324,11 @@
   padding: 2rem;
   box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 1);
 }
+
+.SearchBox {
+  min-width: 400px;
+}
+
 
 .ais-SearchBox {
   position: relative;
@@ -356,7 +358,7 @@
 .ais-SearchBox-submit {
   position: absolute;
   top: 50%;
-  right: 0;
+  right: 30px;
   transform: translateY(-50%);
   padding: 0.75rem;
   border: none;
@@ -374,4 +376,26 @@
 
 .ais-SearchBox-submit:hover .ais-SearchBox-submitIcon {
   transform: rotate(-90deg);
+}
+
+.ais-SearchBox-reset {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 23px;
+  right: 0px;
+  transform: translateY(-50%);
+  margin-right: 0.5rem;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.ais-SearchBox-resetIcon {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: #333;
+  transition: all 0.3s ease;
+  display: none;
 }

@@ -64,6 +64,7 @@ export default function ProfilePage() {
       {/* {uid && <Favourites uid={uid} />} */}
       {uid && <Favourites uid={uid} />}
       <SignOut />
+      <br />
       {checkAdmin() ? <AdminButton /> : ""}
     </div>
   );

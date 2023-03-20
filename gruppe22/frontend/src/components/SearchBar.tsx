@@ -10,7 +10,7 @@ export default function SearchBar() {
       <h1 className="searchTitle">Find your favorite books</h1>
       <InstantSearch indexName="ibdb" searchClient={algoliaClient}>
         <div className="right-panel">
-          <SearchBox />
+          <SearchBox className="SearchBox" />
           <Hits hitComponent={BookHit} />
         </div>
       </InstantSearch>

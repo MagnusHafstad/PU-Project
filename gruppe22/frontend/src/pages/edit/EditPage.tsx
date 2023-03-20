@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../firebase-config";
 import { Book } from "../../types";
+import "./EditPage.css";
 
 interface Props {
   book: Book;
@@ -52,7 +53,7 @@ export default function EditPage() {
   }, []);
 
   return (
-    <div>
+    <div className="EditPageMain">
       <h1>Edit Page for {book?.title}</h1>
     </div>
   );

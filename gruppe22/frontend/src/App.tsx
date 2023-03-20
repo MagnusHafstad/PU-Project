@@ -19,24 +19,26 @@ const App: React.FC = () => {
   return (
     <Router>
       <div className="background">
-        <NavBar />
-      </div>
-      <div className="space"></div>
-      <Routes>
-        <Route path={"/"} element={<Home />} />
-        <Route path={"/FindBooks"} element={<FindBooks />} />
-        <Route path={"/BookPage/:bookID"} element={<BookPage />} />
-        <Route path={"/AuthorPage"} element={<AuthorPage />} />
-        <Route path={"/InsertBook"} element={<InsertBook />} />
-        <Route path={"*"} element={<NotFound />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path={"/Profile/:username"} element={<ProfilePage />} />
-        <Route path={"/Admin"} element={<AdminPage />} />
-        <Route path={"/Edit/:bookID"} element={<EditPage />} />
+        <div className="NavigationBar">
+          <NavBar />
+        </div>
+        <div className="space"></div>
+        <Routes>
+          <Route path={"/"} element={<Home />} />
+          <Route path={"/FindBooks"} element={<FindBooks />} />
+          <Route path={"/BookPage/:bookID"} element={<BookPage />} />
+          <Route path={"/AuthorPage"} element={<AuthorPage />} />
+          <Route path={"/InsertBook"} element={<InsertBook />} />
+          <Route path={"*"} element={<NotFound />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path={"/Profile/:username"} element={<ProfilePage />} />
+          <Route path={"/Admin"} element={<AdminPage />} />
+          <Route path={"/Edit/:bookID"} element={<EditPage />} />
 
-        {/* <Route path={"/LoginPage"} element={<LoginPage />} /> */}
-      </Routes>
+          {/* <Route path={"/LoginPage"} element={<LoginPage />} /> */}
+        </Routes>
+      </div>
     </Router>
   );
 };
