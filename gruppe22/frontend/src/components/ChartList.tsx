@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Book } from "../types";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase-config";
 import CompactSingleBook from "./CompactSingleBook";
 import Dropdown from "react-dropdown";
@@ -10,7 +10,8 @@ export default function BookList() {
   const colRef = collection(db, "books");
 
   const [books, setBooks] = React.useState<Book[] | undefined>();
-  const [defaultOption, setDefaultOption] = useState("All");
+  const [defaultOption, setDefaultOption] = useState("Alle");
+  const [genres, setGenres] = React.useState<string[]>();
 
   async function fetchBooks() {
     getDocs(colRef).then((snapshot) => {
@@ -34,13 +35,18 @@ export default function BookList() {
 
   useEffect(() => {
     fetchBooks();
+    console.log(defaultOption);
   }, []);
 
-  const options = ["Alle", "Narnia", "Fantasy"];
+  useEffect(() => {
+    books?.map((b) => getBookGenre(b.id));
+  }, [books]);
 
-  const handleDropdownChange = (selectedOption: any) => {
+  const options = ["Alle", "Narnia", "fantasy"];
+
+  function handleDropdownChange(selectedOption: any) {
     setDefaultOption(selectedOption.value);
-  };
+  }
 
   function compareBooks(a: Book, b: Book) {
     if (a.avgUserRating === undefined || b.avgUserRating === undefined) {
@@ -53,6 +59,29 @@ export default function BookList() {
       return 1;
     }
     return 0;
+  }
+
+  async function getBookGenre(bookID: string) {
+    const genresTemp: string[] = [];
+    const genreRef = collection(db, "books/" + bookID + "/genres");
+    const snapshot = await getDocs(genreRef);
+    snapshot.docs.map((doc) => {
+      genresTemp.push(doc.get("genre"));
+    });
+    setGenres(genresTemp);
+  }
+
+  function hasGenre(bookId: string, defaultOption: string) {
+    const genreRef = collection(db, "books/" + bookId + "/genres");
+    const q = query(genreRef, where("genre", "==", defaultOption));
+    getDocs(q).then((snapshot) => {
+      console.log(snapshot.docs.length);
+      if (snapshot.docs.length > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   }
 
   return (
@@ -71,7 +100,7 @@ export default function BookList() {
           <>
             {books
               .sort(compareBooks)
-              .filter((book) => defaultOption === "Alle" || book.title === defaultOption) //book.title is a test of the filter function. Should be genra
+              .filter((book) => defaultOption === "Alle" || genres?.includes(defaultOption)) //hasGenre(book.id, defaultOption)) //
               .map((book) => (
                 <CompactSingleBook key={book.id} book={book} />
               ))}
