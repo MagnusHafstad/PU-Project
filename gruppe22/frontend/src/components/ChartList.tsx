@@ -34,8 +34,6 @@ export default function BookList() {
     });
   }
 
-  const options = ["Alle", "Narnia", "fantasy"];
-
   function handleDropdownChange(selectedOption: any) {
     setDefaultOption(selectedOption.value);
   }
@@ -70,6 +68,7 @@ export default function BookList() {
     }
   }
 
+  // maps all the books that have the selected genre to chartBooks
   async function hasGenre() {
     const tempChartBooks: Book[] = [];
     if (books && books.length > 0) {
@@ -93,12 +92,12 @@ export default function BookList() {
     console.log(defaultOption);
   }, []);
 
+  // waits for books to be updated and then checks all books in the array for genres and sets the 'genres'-array to all the unique ones it finds
   useEffect(() => {
-    console.log("get genres");
-    console.log(genres);
     getBookGenre();
   }, [books]);
 
+  //runs the "check if a book has the genre" when the dropdown is updated
   useEffect(() => {
     hasGenre();
   }, [defaultOption]);
@@ -109,6 +108,7 @@ export default function BookList() {
         <h1 className="ListTitle">Topplister</h1>
         {genres != undefined && genres.length != 0 ? (
           <Dropdown
+            // Sets the options of the dropdown to all the genres in the 'genres'-array
             options={genres.map((genre) => ({ value: genre, label: genre }))}
             onChange={handleDropdownChange}
             value={{ value: defaultOption, label: defaultOption }}
