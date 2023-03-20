@@ -19,15 +19,16 @@ export default function InsertBook() {
 
   //the code below is for checking if user is admin or not
   const colAdm = collection(db, "admin");
-
   const [admins, setAdmins] = React.useState<Admin[] | undefined>();
   const [uid, setUid] = React.useState<string>("");
   // const [username, setUsername] = React.useState<string | null>();
 
   const genres = [
     { label: "Barnebok", value: "barnebok" },
+    { label: "Ungdom", value: "ungdom" },
     { label: "Sakprosa", value: "sakprosa" },
     { label: "Fantasy", value: "fantasy" },
+    { label: "Science fiction", value: "science fiction" },
   ];
 
   const [selected, setSelected] = useState([]);
@@ -35,8 +36,9 @@ export default function InsertBook() {
   useEffect(() => {
     getUser();
     fetchAdmin();
+    checkAdmin();
     // fetchImage();
-  }, []);
+  }, [uid]);
 
   //fetches admin uids from db
   async function fetchAdmin() {
@@ -97,7 +99,7 @@ export default function InsertBook() {
     }
   };
 
-  function addBook(
+  async function addBook(
     newTitle: string,
     newAuthor: string,
     newPublicationYear: number,
@@ -110,7 +112,7 @@ export default function InsertBook() {
     console.log(newPhoto);
     console.log(photoName);
 
-    const newBookRef = addDoc(collection(db, "books"), {
+    const newBook = addDoc(collection(db, "books"), {
       author: newAuthor,
       description: newDescription,
       numUserRatings: 0,
@@ -118,6 +120,12 @@ export default function InsertBook() {
       title: newTitle,
       publicationYear: newPublicationYear,
     });
+
+    const genreCollectionPath = (await newBook).id + "/genres";
+
+    console.log(genreCollectionPath);
+
+    const genresCollection = collection(collection(db, "books"), genreCollectionPath);
 
     if (newPhoto != null) {
       // creates the filepath for the image
@@ -129,14 +137,14 @@ export default function InsertBook() {
       });
     }
 
+    // const genresRef = collection(newBookRef, "genres");
+
     // genres should perhaps be a separate thing on firebase like users, but for now this solution is sufficent
-    let fieldName;
-    genres.forEach(
-      (element: any) => (fieldName = element.value.toString()),
-      addDoc(collection(db, "books"), {
-        fieldName: fieldName,
-      })
-    );
+    genres.forEach((element: any) => {
+      addDoc(genresCollection, {
+        genre: element.value.toString(),
+      });
+    });
   }
 
   return (

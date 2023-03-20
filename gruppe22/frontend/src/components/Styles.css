@@ -4,7 +4,22 @@
   margin-bottom: 10px;
   max-width: 700px;
   min-width: 700px;
-  background-color: #90C2E7;
+  background-color: #90c2e7;
+  border: 5px;
+  outline-style: solid;
+  outline-width: 3px;
+  outline-color: #ffffff;
+  color: rgb(255, 255, 255);
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 1);
+}
+
+.CompactSingleBook {
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  max-width: 700px;
+  min-width: 700px;
+  background-color: #90c2e7;
   border: 5px;
   outline-style: solid;
   outline-width: 3px;
@@ -62,8 +77,8 @@
 .BookList {
   display: flex;
   flex-direction: column;
-  align-items:center;
-  background-color: #4E8098;
+  align-items: center;
+  background-color: #4e8098;
   padding-left: 50px;
   padding-right: 50px;
   padding-bottom: 30px;
@@ -84,16 +99,11 @@
   text-shadow: 2px 2px #000000;
 }
 
-
-
 .homeLink {
   color: white;
   padding-left: 20px;
   padding-right: 20px;
 }
-
-
-
 
 /* Removes bullet points from search lists */
 .ais-Hits-list {
@@ -113,7 +123,7 @@
 }
 
 .sectionLogin {
-  background-color: #4E8098;
+  background-color: #4e8098;
   padding: 3rem;
   border-radius: 0.5rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -150,7 +160,7 @@
 }
 
 .buttonLogin {
-  background-color: #90C2E7;
+  background-color: #90c2e7;
   color: #fff;
   font-size: 1.2rem;
   font-weight: bold;
@@ -162,7 +172,7 @@
 }
 
 .buttonLogin:hover {
-  background-color: #65AACC;
+  background-color: #65aacc;
 }
 
 .noAccLogin {
@@ -171,9 +181,6 @@
   color: #ffffff;
   font-size: 1.1rem;
 }
-
-
-
 
 .findBooksLink {
   text-decoration: none;
@@ -184,7 +191,7 @@
 }
 
 .findBooksLink:hover {
-  font-size:2.5rem;
+  font-size: 2.5rem;
   transition: all 500ms;
   font-size-adjust: 20px;
 }
@@ -193,7 +200,6 @@
   color: rgb(255, 255, 255);
   text-shadow: 2px 2px #000000;
 }
-
 
 .heading {
   font-size: 2rem;
@@ -205,7 +211,6 @@
   transition: all 500ms;
   font-size-adjust: 20px;
 }
-
 
 .SingleBook {
   display: flex;
@@ -255,8 +260,6 @@
   margin-left: auto;
 }
 
-
-
 .ListTitle {
   font-size: 2rem;
   font-weight: bold;
@@ -265,7 +268,7 @@
 }
 
 .navigationBar {
-  background-color: #4E8098;
+  background-color: #4e8098;
   font-size: 30px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   height: 80px;
@@ -283,8 +286,6 @@
   right: 50px;
 }
 
-
-
 .profilePageButton:before {
   content: "\f007   ";
   font-family: "Font Awesome 5 Free";
@@ -300,7 +301,6 @@
   color: white;
 }
 
-
 .Search {
   align-items: center;
   flex-direction: column;
@@ -310,8 +310,8 @@
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  align-items:center;
-  background-color: #4E8098;
+  align-items: center;
+  background-color: #4e8098;
   padding-left: 50px;
   padding-right: 50px;
   border-radius: 10px;
@@ -348,7 +348,7 @@
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   outline-style: solid;
   outline-width: 3px;
-  outline-color: #90C2E7;
+  outline-color: #90c2e7;
 }
 
 .ais-SearchBox-input::placeholder {

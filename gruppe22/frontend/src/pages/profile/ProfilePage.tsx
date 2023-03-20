@@ -30,6 +30,7 @@ export default function ProfilePage() {
     });
   }
 
+  //checks if user is admin
   function checkAdmin() {
     if (admins?.find((a) => a.uid == uid)) {
       return true;
@@ -51,7 +52,8 @@ export default function ProfilePage() {
   useEffect(() => {
     getUser();
     fetchAdmin();
-  }, []);
+    checkAdmin();
+  }, [uid]);
 
   return (
     <div className="ProfilePage">
