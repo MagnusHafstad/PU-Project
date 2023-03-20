@@ -57,7 +57,7 @@ export default function BookList() {
 
   return (
     <>
-      <div className="BookList">
+      <div className="ChartBookList">
         <h1 className="ListTitle">Topplister</h1>
         <Dropdown
           options={options.map((option) => ({ value: option, label: option }))}

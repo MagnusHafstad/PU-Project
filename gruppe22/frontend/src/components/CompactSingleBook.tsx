@@ -44,7 +44,7 @@ export default function SingleBook({ book }: Props) {
   return (
     <body>
       <div className="CompactSingleBook">
-        <div className="SingleBookPhoto">
+        <div className="CompactSingleBookPhoto">
           <Link to={bookLink} className="PhotoLink">
             <img src={imageURL} className="BookListPhoto" />
           </Link>
@@ -53,7 +53,6 @@ export default function SingleBook({ book }: Props) {
           <Link to={bookLink} className="LinkToBook">
             <h2>{book.title}</h2>
             <h3>by {book.author}</h3>
-            <p className="Description">{book.description}</p>
           </Link>
         </div>
         <div className="Ratings">
