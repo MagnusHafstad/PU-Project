@@ -185,7 +185,6 @@ export default function BookPage() {
     //må sjekke innlogging
     if (rating >= 0 && rating <= 10) {
       addRating(rating);
-      checkRating();
     } else {
       //Feilhåntering
     }
@@ -196,7 +195,6 @@ export default function BookPage() {
     //må sjekke innlogging
     if (rating >= 0 && rating <= 10) {
       addProfRating(rating);
-      checkProfRating();
     } else {
       //Feilhåntering
     }
@@ -269,7 +267,6 @@ export default function BookPage() {
       if (user != null) {
         // setUsername(user.email);
         setUid(user.uid);
-        getFavourites(user.uid);
       }
     });
   }
@@ -310,24 +307,27 @@ export default function BookPage() {
   }
 
   function checkProfRating() {
+    console.log("uid:" + uid);
     //checks if the user has put in a professional rating
     const profRatingRef = collection(db, "books/" + bookID + "/profRatings");
     const pq = query(profRatingRef, where("userID", "==", uid));
     getDocs(pq).then((snapshot) => {
+      console.log(snapshot.docs);
       if (snapshot.docs.length > 0) {
         setProfHasRated(true);
+      } else {
+        setProfHasRated(false);
       }
     });
-    setProfHasRated(false);
   }
 
   //code below is used for fetching favourites of user and then checking if the book on the page is in the favourites
   const [favourites, setFavourites] = React.useState<string[] | undefined>();
   const [hasFavourited, setHasFavourited] = React.useState<boolean>(false);
 
-  async function getFavourites(userId: string) {
+  async function getFavourites() {
     //has to wait for fetching user before using uid to fetch users favourites
-    const favRef = collection(db, "users/" + userId + "/favourites");
+    const favRef = collection(db, "users/" + uid + "/favourites");
     const tempFavourites: string[] = [];
     const snapshot = await getDocs(favRef);
     snapshot.docs.map((doc) => {
@@ -374,25 +374,33 @@ export default function BookPage() {
   }
   useEffect(() => {
     console.log("hei");
-    fetchBook();
-    getUser();
     fetchAdmin();
     fetchProf();
-    // getFavourites();
-    // checkFavourites();
+    //getFavourites();
     checkRating();
     checkProfRating();
-    getUserRating();
-    getProfRating();
-    console.log(hasFavourited);
-  }, [hasRated, profHasRated, userRating]);
+    getFavourites();
+    console.log(hasRated);
+  }, [uid, profRating, userRating]);
+
+  useEffect(() => {
+    fetchBook();
+    getUser();
+  }, []);
 
   //useeffect that runs checkfavourites when 'favourites is updated'
   useEffect(() => {
-    console.log("useeffect2");
+    console.log("u2: favourites");
     // getFavourites(uid);
     checkFavourites();
   }, [favourites]);
+
+  useEffect(() => {
+    console.log("u3: rating");
+    fetchBook();
+    getUserRating();
+    getProfRating();
+  }, [hasRated, profHasRated, profRating, userRating]);
 
   return (
     <>
