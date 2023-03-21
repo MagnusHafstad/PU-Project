@@ -402,7 +402,7 @@ export default function BookPage() {
     checkRating();
   }, [userRating]);
 
-  //Useeffect that checks whether a professional user has rated when profRating changes
+  //Useeffect that checks whether the professional user has rated when profRating changes
   useEffect(() => {
     console.log("In useeffect checkprofrating");
     checkProfRating();
