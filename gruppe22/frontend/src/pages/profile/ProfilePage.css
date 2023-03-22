@@ -1,11 +1,52 @@
 .ProfilePage {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
     width: 100%;
     height: 100%;
-    padding-bottom: 200px;
     background-color: #fcf7f8;
-    
+}
+
+.UserInfo{
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: #ffffff;
+}
+
+.username{
+    font-size: 1rem; 
+    margin-bottom: 2rem;
+    color: #ffffff;
+}
+.InfoAndFavourites{
+    width: auto;
+}
+.ProfileInfo {
+    margin-left: 10vw;
+    width: 40vw;
+    height: 42vh;
+    float: left;
+    background-color: #4e8098;
+    border-radius: 10px;
+    outline-style: solid;
+    outline-width: 3px;
+    outline-color: white;
+    padding: 2rem;
+    box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 1);
+}
+.FavouriteList {
+    /* margin-right: 4vw; */
+    float: right;
+}
+
+.Buttons{
+    margin-top: 20vh;
+    padding-bottom: 5px;
+}
+.profileHeader{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
 }
