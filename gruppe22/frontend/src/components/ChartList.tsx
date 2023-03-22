@@ -60,6 +60,7 @@ export default function BookList() {
       <div className="ChartBookList">
         <h1 className="ListTitle">Topplister</h1>
         <Dropdown
+          className="Dropdown"
           options={options.map((option) => ({ value: option, label: option }))}
           onChange={handleDropdownChange}
           value={{ value: defaultOption, label: defaultOption }}

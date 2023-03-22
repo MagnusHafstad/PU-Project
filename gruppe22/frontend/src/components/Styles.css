@@ -436,3 +436,7 @@
   transition: all 0.3s ease;
   display: none;
 }
+
+.Dropdown{
+  width: 10rem;
+}
