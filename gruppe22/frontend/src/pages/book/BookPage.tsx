@@ -434,7 +434,13 @@ export default function BookPage() {
             hasFavourited ? (
               hasRated ? (
                 <>
-                  <div className="YourRating"> Your rating: {userRating}</div>
+                  <div className="YourRating">
+                    Your rating:
+                    <div className="BookRating">
+                      {userRating}
+                      <p className="Star">&#11088;</p>
+                    </div>
+                  </div>
                   <br />
                   <Button onClick={removeFavourite} variant="contained" color="error">
                     Remove from favourites
@@ -442,7 +448,9 @@ export default function BookPage() {
                 </>
               ) : (
                 <div>
-                  <label htmlFor="Rating">Rate the book</label>
+                  <label className="RateBook" htmlFor="Rating">
+                    Rate the book:
+                  </label>
                   <input id="Rating" name="Rating" type="number" min="0" max="10" step="1" ref={ratingInputRef} />
                   <button onClick={handleAddRating}>Add Rating</button>
                   <br />
@@ -453,7 +461,13 @@ export default function BookPage() {
               )
             ) : hasRated ? (
               <>
-                <div> Your rating: {userRating}</div>
+                <div className="YourRating">
+                  Your rating:
+                  <div className="BookRating">
+                    {userRating}
+                    <p className="Star">&#11088;</p>
+                  </div>
+                </div>
                 <br />
                 <Button onClick={addFavorite} variant="contained">
                   Add to favourites
@@ -461,7 +475,9 @@ export default function BookPage() {
               </>
             ) : (
               <div>
-                <label htmlFor="Rating">Rate the book</label>
+                <label className="RateBook" htmlFor="Rating">
+                  Rate the book:
+                </label>
                 <input id="Rating" name="Rating" type="number" min="0" max="10" step="1" ref={ratingInputRef} />
                 <button onClick={handleAddRating}>Add Rating</button>
                 <br />
@@ -477,15 +493,22 @@ export default function BookPage() {
             hasFavourited ? (
               profHasRated ? (
                 <>
-                  <div> Your rating: {profRating}</div>
-                  <br />
+                  <div className="YourRating">
+                    Your rating:
+                    <div className="BookRating">
+                      {profRating}
+                      <p className="GoldStar">&#11088;</p>
+                    </div>
+                  </div>
                   <Button onClick={removeFavourite} variant="contained" color="error">
                     Remove from favourites
                   </Button>
                 </>
               ) : (
                 <div>
-                  <label htmlFor="Rating">Rate the book</label>
+                  <label className="RateBook" htmlFor="Rating">
+                    Rate the book:
+                  </label>
                   <input id="Rating" name="Rating" type="number" min="0" max="10" step="1" ref={profRatingInputRef} />
                   <button onClick={handleAddProfRating}>Add Rating</button>
                   <br />
@@ -496,7 +519,13 @@ export default function BookPage() {
               )
             ) : profHasRated ? (
               <>
-                <div> Your rating: {profRating}</div>
+                <div className="YourRating">
+                  Your rating:
+                  <div className="BookRating">
+                    {profRating}
+                    <p className="GoldStar">&#11088;</p>
+                  </div>
+                </div>
                 <br />
                 <Button onClick={addFavorite} variant="contained">
                   Add to favourites
@@ -504,7 +533,9 @@ export default function BookPage() {
               </>
             ) : (
               <div>
-                <label htmlFor="Rating">Rate the book</label>
+                <label className="RateBook" htmlFor="Rating">
+                  Rate the book:
+                </label>
                 <input id="ProfRating" name="Rating" type="number" min="0" max="10" step="1" ref={profRatingInputRef} />
                 <button onClick={handleAddProfRating}>Add Rating</button>
                 <br />

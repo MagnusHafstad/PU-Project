@@ -38,4 +38,14 @@
     color: transparent;  
     text-shadow: 0 0 0 #D1B000;
   }
+
+  .RateBook {
+    font-weight: bold;
+    display: inline-block;
+    padding-right: 10px;
+  }
+
+  .YourRating{
+    font-weight: bold;
+  }
   
