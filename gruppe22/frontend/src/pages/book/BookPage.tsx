@@ -372,19 +372,17 @@ export default function BookPage() {
     });
     setHasFavourited(false);
   }
+
   useEffect(() => {
     console.log("hei");
     fetchBook();
     getUser();
     fetchAdmin();
     fetchProf();
-    // getFavourites();
-    // checkFavourites();
     checkRating();
     checkProfRating();
     getUserRating();
     getProfRating();
-    console.log(hasFavourited);
   }, [hasRated, profHasRated, userRating]);
 
   //useeffect that runs checkfavourites when 'favourites is updated'
