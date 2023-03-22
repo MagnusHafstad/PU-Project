@@ -58,7 +58,7 @@ export default function BookList() {
   return (
     <>
       <div className="ChartBookList">
-        <h1 className="ListTitle">Topplister</h1>
+        <h1 className="ListTitle">Charts</h1>
         <Dropdown
           options={options.map((option) => ({ value: option, label: option }))}
           onChange={handleDropdownChange}
