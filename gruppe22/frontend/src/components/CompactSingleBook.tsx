@@ -42,7 +42,7 @@ export default function SingleBook({ book }: Props) {
 
   const bookLink: string = "/BookPage/" + book.id;
   return (
-    <body>
+    <div>
       <div className="CompactSingleBook">
         <div className="CompactSingleBookPhoto">
           <Link to={bookLink} className="PhotoLink">
@@ -59,6 +59,6 @@ export default function SingleBook({ book }: Props) {
           <h3> {book.avgUserRating?.toFixed(1) || "no ratings"}</h3>
         </div>
       </div>
-    </body>
+    </div>
   );
 }
