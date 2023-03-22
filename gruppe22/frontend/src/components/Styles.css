@@ -450,6 +450,10 @@
   display: none;
 }
 
+.Dropdown{
+  width: 10rem;
+}
+  
 .FavTitle{
     font-size: 1.5rem;
       font-weight: bold;

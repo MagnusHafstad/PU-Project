@@ -108,6 +108,7 @@ export default function BookList() {
         <h1 className="ListTitle">Charts</h1>
         {genres != undefined && genres.length != 0 ? (
           <Dropdown
+            className="Dropdown"
             // Sets the options of the dropdown to all the genres in the 'genres'-array
             options={genres.map((genre) => ({ value: genre, label: genre }))}
             onChange={handleDropdownChange}
@@ -123,9 +124,21 @@ export default function BookList() {
         ) : (
           <>
             {chartBooks != undefined && chartBooks.length != 0 ? (
-              chartBooks.sort(compareBooks).map((book) => <CompactSingleBook key={book.id} book={book} />)
+              chartBooks.sort(compareBooks).map((book, i) => {
+                if (i < 5) {
+                  return <CompactSingleBook key={book.id} book={book} />;
+                } else {
+                  return;
+                }
+              })
             ) : defaultOption == "All" ? (
-              books.sort(compareBooks).map((book) => <CompactSingleBook key={book.id} book={book} />)
+              books.sort(compareBooks).map((book, i) => {
+                if (i < 4) {
+                  return <CompactSingleBook key={book.id} book={book} />;
+                } else {
+                  return;
+                }
+              })
             ) : (
               <div>No books with this genre</div>
             )}
