@@ -304,9 +304,10 @@ export default function BookPage() {
     getDocs(q).then((snapshot) => {
       if (snapshot.docs.length > 0) {
         setHasRated(true);
+      } else {
+        setHasRated(false);
       }
     });
-    setHasRated(false);
   }
 
   function checkProfRating() {
@@ -316,9 +317,10 @@ export default function BookPage() {
     getDocs(pq).then((snapshot) => {
       if (snapshot.docs.length > 0) {
         setProfHasRated(true);
+      } else {
+        setProfHasRated(false);
       }
     });
-    setProfHasRated(false);
   }
 
   //code below is used for fetching favourites of user and then checking if the book on the page is in the favourites
@@ -373,21 +375,42 @@ export default function BookPage() {
     setHasFavourited(false);
   }
 
+  //useeffect for rendering book and (type of) user
   useEffect(() => {
-    console.log("hei");
+    console.log("in normal useEffect");
     fetchBook();
     getUser();
     fetchAdmin();
     fetchProf();
-    checkRating();
-    checkProfRating();
+  }, []);
+
+  //useeffect that gets the rating when uid has been set and hasrated changes
+  useEffect(() => {
+    console.log("In useeffect userrating");
     getUserRating();
+  }, [hasRated, uid]);
+
+  //useeffect that gets the rating when uid has been set and hasrated changes
+  useEffect(() => {
+    console.log("In useeffect profrating");
     getProfRating();
-  }, [hasRated, profHasRated, userRating]);
+  }, [profHasRated, uid]);
+
+  //Useeffect that checks whether a user has rated when userRating changes
+  useEffect(() => {
+    console.log("In useeffect checkrating");
+    checkRating();
+  }, [userRating]);
+
+  //Useeffect that checks whether the professional user has rated when profRating changes
+  useEffect(() => {
+    console.log("In useeffect checkprofrating");
+    checkProfRating();
+  }, [profRating]);
 
   //useeffect that runs checkfavourites when 'favourites is updated'
   useEffect(() => {
-    console.log("useeffect2");
+    console.log("in useeffect checkfavourites");
     // getFavourites(uid);
     checkFavourites();
   }, [favourites]);
