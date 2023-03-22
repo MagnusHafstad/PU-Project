@@ -105,9 +105,10 @@ export default function BookList() {
   return (
     <>
       <div className="ChartBookList">
-      <h1 className="ListTitle">Charts</h1>
+        <h1 className="ListTitle">Charts</h1>
         {genres != undefined && genres.length != 0 ? (
           <Dropdown
+            className="Dropdown"
             // Sets the options of the dropdown to all the genres in the 'genres'-array
             options={genres.map((genre) => ({ value: genre, label: genre }))}
             onChange={handleDropdownChange}
