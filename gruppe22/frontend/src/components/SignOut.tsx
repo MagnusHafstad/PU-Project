@@ -18,7 +18,7 @@ export default function () {
   };
   return (
     <div>
-      <Button variant="contained" onClick={handleLogout}>
+      <Button variant="contained" color="error" onClick={handleLogout}>
         Logout
       </Button>
     </div>

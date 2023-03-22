@@ -104,6 +104,7 @@
   box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 1);
   margin-left: 100px;
   margin-right: 100px;
+  margin-bottom: 30px;
 }
 
 .ChartBookList {
@@ -124,6 +125,7 @@
   padding: 2rem;
   box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 1);
   margin-right: 100px;
+  margin-bottom: 30px;
 }
 
 .ListTitle {
@@ -435,4 +437,38 @@
   fill: #333;
   transition: all 0.3s ease;
   display: none;
+}
+
+.FavTitle{
+    font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+      color: #ffffff;
+}
+
+.CompactSingleBook:hover {
+    transition: all 500ms;
+      background-color: lightgray;
+}
+
+.FavBookList {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #4e8098;
+      padding-left: 50px;
+      /* padding-right: 50px; */
+      padding-bottom: 30px;
+      padding-top: 10px;
+      border-radius: 10px;
+      outline-style: solid;
+      outline-width: 3px;
+      outline-color: white;
+      align-content: center;
+      max-width: 800px;
+      padding: 2rem;
+      box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 1);
+      /* margin-left: 100px; */
+      margin-right: 10vw;
+      margin-bottom: 30px;
 }
