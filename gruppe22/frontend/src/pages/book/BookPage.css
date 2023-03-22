@@ -19,4 +19,33 @@
     outline: 5px;
     outline-color: #4E8098;
   }
+
+  .BookRating {
+    font-size: 30px;
+  }
+  .AvgUserRating {
+    display: inline-block;
+    font-weight: bold;
+  }
+
+  .AvgProfRating{
+    display: inline-block;
+    font-weight: bold;
+    padding-left: 40px;
+  }
+  .GoldStar {
+    display: inline-block;
+    color: transparent;  
+    text-shadow: 0 0 0 #D1B000;
+  }
+
+  .RateBook {
+    font-weight: bold;
+    display: inline-block;
+    padding-right: 10px;
+  }
+
+  .YourRating{
+    font-weight: bold;
+  }
   
