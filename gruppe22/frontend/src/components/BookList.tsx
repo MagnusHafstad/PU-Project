@@ -45,8 +45,12 @@ export default function BookList() {
           </>
         ) : (
           <>
-            {books.map((book: Book) => {
-              return <SingleBook book={book} />;
+            {books.map((book: Book, i) => {
+              if (i < 4) {
+                return <SingleBook book={book} />;
+              } else {
+                return;
+              }
             })}
           </>
         )}
